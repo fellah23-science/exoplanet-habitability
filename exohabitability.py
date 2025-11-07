@@ -45,8 +45,17 @@ with tab1:
     st.subheader("⭐ Star Properties")
     col1, col2 = st.columns(2)
     with col1:
-        M_star = st.number_input("Star Mass (M☉)", value=1.0, min_value=0.01)
-        L_star_log = st.number_input("Star Luminosity (log10 L/L☉)", value=0.0)
+        M_star = st.number_input(
+            "Star Mass (M☉)",
+            value=1.0,
+            min_value=0.01,
+            help="Mass of the star in solar masses (1 M☉ = mass of our Sun)."
+        )
+        L_star_log = st.number_input(
+            "Star Luminosity (log10 L/L☉)",
+            value=0.0,
+            help="Luminosity of the star in log10 units relative to Sun. 0 means same as Sun."
+        )
     with col2:
         st.markdown("")
 
@@ -54,12 +63,40 @@ with tab1:
     st.subheader("🌍 Planet Properties")
     col1, col2 = st.columns(2)
     with col1:
-        Planet_mass = st.number_input("Planet Mass (M⊕)", value=1.0, min_value=0.0)
-        e = st.number_input("Eccentricity (0=circle)", value=0.0, min_value=0.0, max_value=0.99)
-        A = st.number_input("Albedo (reflectivity)", value=0.3, min_value=0.0, max_value=1.0)
+        Planet_mass = st.number_input(
+            "Planet Mass (M⊕)",
+            value=1.0,
+            min_value=0.0,
+            help="Mass of the planet in Earth masses (1 M⊕ = mass of Earth)."
+        )
+        e = st.number_input(
+            "Eccentricity (0=circle)",
+            value=0.0,
+            min_value=0.0,
+            max_value=0.99,
+            help="Orbital shape of the planet; 0 is circular, closer to 1 is elongated."
+        )
+        A = st.number_input(
+            "Albedo (reflectivity)",
+            value=0.3,
+            min_value=0.0,
+            max_value=1.0,
+            help="Fraction of starlight reflected by the planet; 0 = absorbs all, 1 = reflects all."
+        )
     with col2:
-        P_days = st.number_input("Orbital Period (days)", value=365.0, min_value=0.1)
-        i_deg = st.number_input("Inclination (degrees)", value=90.0, min_value=0.0, max_value=180.0)
+        P_days = st.number_input(
+            "Orbital Period (days)",
+            value=365.0,
+            min_value=0.1,
+            help="Time the planet takes to orbit its star once, in Earth days."
+        )
+        i_deg = st.number_input(
+            "Inclination (degrees)",
+            value=90.0,
+            min_value=0.0,
+            max_value=180.0,
+            help="Angle between orbital plane and line of sight; 90° = edge-on."
+        )
 
     # --- Calculations ---
     P_sec = P_days * DAY
@@ -85,18 +122,38 @@ with tab1:
     st.header("📊 Results")
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Radial Velocity (m/s)", f"{K:.2f}")
+        st.metric(
+            "Radial Velocity (m/s)",
+            f"{K:.2f}",
+            delta=None,
+            help="Radial velocity induced on the star by the planet, measured in meters/second."
+        )
     with col2:
-        st.metric("Orbital Distance (AU)", f"{a/AU:.3f}")
+        st.metric(
+            "Orbital Distance (AU)",
+            f"{a/AU:.3f}",
+            delta=None,
+            help="Average distance from the star in Astronomical Units (1 AU = Earth-Sun distance)."
+        )
     with col3:
-        st.metric("Equilibrium Temperature (K)", f"{T_eq:.1f}")
+        st.metric(
+            "Equilibrium Temperature (K)",
+            f"{T_eq:.1f}",
+            delta=None,
+            help="Temperature the planet would have if it were a perfect blackbody, ignoring atmosphere."
+        )
 
-    st.markdown(f"**Habitability:** {habitability}")
+    st.markdown(f"**Habitability:** {habitability}  ⓘ Hover over each metric for details.")
 
 # --- TAB 2: Exoplanet Data ---
 with tab2:
     st.header("📊 Exoplanet Data")
-    st.dataframe(df_planets, use_container_width=True)
+    st.dataframe(
+        df_planets,
+        use_container_width=True,
+        height=400
+    )
+    st.caption("Data includes orbital and physical parameters of select exoplanets. ")
 
 # --- TAB 3: Learn & Discover ---
 with tab3:
@@ -171,8 +228,13 @@ with tab4:
     </table>
     """, unsafe_allow_html=True)
 
-   
 
+
+   
+      
+       
+       
+        
       
        
        
@@ -184,6 +246,7 @@ with tab4:
 
     
  
+
 
 
 
