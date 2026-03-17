@@ -3,8 +3,6 @@ import math
 import numpy as np
 import pandas as pd
 import random
-import streamlit.components.v1 as components
-
 # ---------------- CONSTANTS ----------------
 G = 6.67430e-11
 sigma = 5.670374419e-8
