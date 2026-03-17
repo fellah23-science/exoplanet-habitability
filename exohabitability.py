@@ -1,34 +1,28 @@
+# --- CLEAR CACHE ---
 import streamlit as st
+st.cache_data.clear()
+st.cache_resource.clear()
+
+# --- IMPORTS ---
 import math
 import numpy as np
 import pandas as pd
 import random
 
-# --- Make background plain white ---
-st.markdown(
-    """
-    <style>
-    .stApp {
-        background: white !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-# --- Constants ---
-G = 6.67430e-11        # Gravitational constant (m^3 kg^-1 s^-2)
-sigma = 5.670374419e-8 # Stefan-Boltzmann constant (W/m^2 K^4)
-M_sun = 1.989e30       # Mass of Sun (kg)
-L_sun = 3.828e26       # Luminosity of Sun (W)
-M_earth = 5.972e24     # Earth mass in kg
-DAY = 86400.0          # seconds in a day
-AU = 1.496e11          # meters
+# --- CONSTANTS ---
+G = 6.67430e-11
+sigma = 5.670374419e-8
+M_sun = 1.989e30
+L_sun = 3.828e26
+M_earth = 5.972e24
+DAY = 86400.0
+AU = 1.496e11
 
-# --- Page setup ---
-st.set_page_config(page_title="ExoHabit", layout="wide")
-st.title("🌌 ExoHabit – Exoplanet Explorer")
+# --- PAGE SETUP ---
+st.set_page_config(page_title="ExoHabit App", layout="wide")
+st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
 
-# --- Planet data ---
+# --- PLANET DATA ---
 planet_data = [
     {"Planet":"Kepler-22b","Eccentricity":0.72,"Orbital Period (days)":289.86,"Inclination (°)":89.764,
      "Planet Mass (M⊕)":36,"Star Mass (M☉)":0.97,"Star Luminosity (log10 L/L☉)":-0.19},
@@ -43,21 +37,16 @@ planet_data = [
 ]
 df_planets = pd.DataFrame(planet_data)
 
-# --- Tabs ---
+# --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
-    "🪐 Calculator", 
-    "📊 Exoplanet Data", 
-    "💫 Learn & Discover", 
-    "🌌 Galaxy Notes", 
-    "📝 Assessment Zone", 
-    "🤖 SpaceBot AI", 
-    "🌞 Solar System Simulation"
+    "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes",
+    "📝 Assessment Zone", "🤖 SpaceBot AI", "🌞 Solar System Simulation"
 ])
 
-# ----------------- TAB 1: Habitability Calculator -----------------
+# ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
 with tab1:
     st.header("🪐 Habitability Calculator")
-    st.write("Input parameters of a star or planet to calculate habitability.")
+    st.write("Input the parameters of any exoplanet or star to calculate its habitability details.")
 
     st.subheader("⭐ Star Properties")
     col1, col2 = st.columns(2)
@@ -75,81 +64,105 @@ with tab1:
         A = st.number_input("Albedo (reflectivity)", value=0.3, min_value=0.0, max_value=1.0)
     with col2:
         P_days = st.number_input("Orbital Period (days)", value=365.0, min_value=0.1)
-        i_deg = st.number_input("Inclination (°)", value=90.0, min_value=0.0, max_value=180.0)
+        i_deg = st.number_input("Inclination (degrees)", value=90.0, min_value=0.0, max_value=180.0)
 
-    # Calculations
+    # --- Calculations ---
     P_sec = P_days * DAY
     i_rad = math.radians(i_deg)
     M_star_kg = M_star * M_sun
     M_p_kg = Planet_mass * M_earth
+
     K = ((2 * np.pi * G / P_sec)**(1/3) * (M_p_kg * np.sin(i_rad)) /
-         (M_star_kg + M_p_kg)**(2/3) / np.sqrt(1 - e**2))
+         (M_star_kg + M_p_kg)**(2/3) * 1 / np.sqrt(1 - e**2))
+
     a = ((G * M_star_kg * P_sec**2) / (4 * math.pi**2))**(1/3)
     L_star = 10**L_star_log
     L_star_W = L_star * L_sun
     F = L_star_W / (4 * math.pi * a**2)
     T_eq = ((F * (1 - A)) / (4 * sigma))**0.25
+
     HZ_inner = 0.95 * math.sqrt(L_star) * AU
     HZ_outer = 1.67 * math.sqrt(L_star) * AU
     habitability = "✅ Likely Habitable" if HZ_inner <= a <= HZ_outer else "❌ Not in Habitable Zone"
 
+    # --- Results ---
     col1, col2, col3 = st.columns(3)
-    col1.metric("Radial Velocity (m/s)", f"{K:.2f}")
-    col2.metric("Orbital Distance (AU)", f"{a/AU:.3f}")
-    col3.metric("Equilibrium Temperature (K)", f"{T_eq:.1f}")
+    with col1:
+        st.metric("Radial Velocity (m/s)", f"{K:.2f}")
+    with col2:
+        st.metric("Orbital Distance (AU)", f"{a/AU:.3f}")
+    with col3:
+        st.metric("Equilibrium Temperature (K)", f"{T_eq:.1f}")
+
     st.markdown(f"**Habitability:** {habitability}")
 
-# ----------------- TAB 2: Exoplanet Data -----------------
 with tab2:
-    st.header("📊 Exoplanet Data")
-    st.dataframe(df_planets, use_container_width=True, height=400)
+    st.header("📊 Explore Exoplanet Data")
 
-# ----------------- TAB 3: Learn & Discover -----------------
+    data = {
+        "Planet Name": ["Kepler-22b", "Kepler-452b", "Proxima Centauri b", "TRAPPIST-1e", "Kepler-186f", "Gliese 667 Cc"],
+        "Distance (ly)": [620, 1400, 4.24, 39.6, 490, 23.6],
+        "Orbital Distance (AU)": [0.85, 1.05, 0.05, 0.029, 0.36, 0.125],
+        "Stellar Flux (Earth=1)": [1.11, 1.04, 0.65, 0.66, 0.26, 0.9],
+        "Eccentricity": [0.02, 0.05, 0.15, 0.005, 0.02, 0.1],
+        "Planet Mass (Earth=1)": [2.4, 5.0, 1.3, 0.77, 1.4, 4.5]
+    }
+
+    df = pd.DataFrame(data)
+    st.dataframe(df, use_container_width=True)
+
+    csv = df.to_csv(index=False).encode('utf-8')
+    st.download_button("⬇️ Download Exoplanet Data", csv, "exoplanet_data.csv", "text/csv")
+
+    selected_planet = st.selectbox("🔹 Choose a planet to analyze:", df["Planet Name"])
+    planet_info = df[df["Planet Name"] == selected_planet]
+    st.success(f"✅ Selected: {selected_planet}")
+    st.dataframe(planet_info)  # Show as dataframe
+# ----------------- TAB 3: LEARN & DISCOVER -----------------
 with tab3:
     st.header("💫 Learn & Discover")
     facts = [
-        "🌠 First exoplanet discovered: PSR B1257+12.",
-        "🌞 Stars are mostly hydrogen and helium.",
-        "🌍 Over 5,000 exoplanets discovered so far!",
-        "💧 Habitable zone = where liquid water can exist.",
-        "🌌 Eccentric orbits change exoplanet seasons.",
-        "🧬 Studying exoplanets helps us understand life elsewhere."
+        "🌠 The first exoplanet was discovered in 1992 around a pulsar called PSR B1257+12.",
+        "🌞 Stars are mostly made of hydrogen and helium — just like our Sun.",
+        "🌍 Over 5,000 exoplanets have been discovered so far!",
+        "💧 The 'habitable zone' is where liquid water might exist.",
+        "🌌 Eccentric orbits can make seasons on exoplanets very long or short.",
+        "🧬 Studying exoplanets helps us understand how life forms elsewhere."
     ]
     if st.button("🌟 Show a Space Fact"):
         st.info(random.choice(facts))
 
-# ----------------- TAB 4: Galaxy Notes -----------------
+# ----------------- TAB 4: GALAXY NOTES -----------------
 with tab4:
-    st.header("🌌 Galaxy Notes")
+    st.markdown("<h1>🌌 Galaxy Notes </h1>", unsafe_allow_html=True)
     st.markdown("""
-    <table style="width:100%; border-collapse:collapse;">
-        <tr><th>Cosmic Phenomenon</th><th>Description</th></tr>
-        <tr><td>Black Hole</td><td>Gravity so strong even light can't escape.</td></tr>
-        <tr><td>Supernova</td><td>Explosion of a dying star creating heavy elements.</td></tr>
-        <tr><td>Nebula</td><td>Clouds of gas and dust; birthplace of stars.</td></tr>
-        <tr><td>Star</td><td>Glowing gas sphere shining due to nuclear fusion.</td></tr>
-        <tr><td>Exoplanet</td><td>Planets outside our Solar System.</td></tr>
-        <tr><td>Galaxy</td><td>Vast system of stars, dust, gas & dark matter.</td></tr>
-        <tr><td>Dark Matter</td><td>Invisible matter felt via gravity.</td></tr>
-        <tr><td>Neutron Star</td><td>Tiny, dense remnants of massive stars.</td></tr>
-        <tr><td>Solar System</td><td>Our Sun, planets, asteroids, and comets.</td></tr>
+    <table>
+        <tr><th>🌠 Cosmic Phenomenon</th><th>✨ Description</th></tr>
+        <tr><td>🕳️ Black Hole</td><td>Formed when a massive star collapses under its own gravity. Its pull is so strong that even light cannot escape!</td></tr>
+        <tr><td>💥 Supernova</td><td>A powerful explosion of a dying star that creates heavy elements like gold and iron.</td></tr>
+        <tr><td>🌠 Nebula</td><td>Beautiful clouds of gas and dust in space — the birthplace of new stars.</td></tr>
+        <tr><td>🌞 Star</td><td>A glowing sphere of hot gas that shines because of nuclear fusion in its core.</td></tr>
+        <tr><td>🪐 Exoplanet</td><td>Planets orbiting stars outside our Solar System. Some could support life!</td></tr>
+        <tr><td>🌌 Galaxy</td><td>Vast systems of stars, gas, dust, and dark matter held together by gravity. We live in the Milky Way Galaxy.</td></tr>
+        <tr><td>🌑 Dark Matter</td><td>Invisible matter that makes up most of the universe’s mass — we can’t see it, but we feel its gravity.</td></tr>
+        <tr><td>⚡ Neutron Star</td><td>What remains after a massive star explodes — tiny but incredibly dense!</td></tr>
+        <tr><td>☀️ Solar System</td><td>Our cosmic neighborhood — one Sun, eight planets, and countless asteroids and comets.</td></tr>
     </table>
     """, unsafe_allow_html=True)
 
-# ----------------- TAB 5: Assessment Zone -----------------
+# ----------------- TAB 5: ASSESSMENT ZONE -----------------
 with tab5:
     st.header("📝 Assessment Zone")
     quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
-
     quizzes = {
-        "Space Geek Quiz": [
+        "Space Geek Quiz":[
             {"q":"Which planet is closest to the Sun?","options":["Mercury","Venus","Earth","Mars"],"a":"Mercury"},
             {"q":"Largest planet in the solar system?","options":["Jupiter","Saturn","Earth","Mars"],"a":"Jupiter"},
             {"q":"Planet known as Red Planet?","options":["Venus","Mars","Mercury","Jupiter"],"a":"Mars"},
             {"q":"Which planet rotates sideways?","options":["Uranus","Earth","Venus","Neptune"],"a":"Uranus"},
             {"q":"Hottest planet?","options":["Earth","Venus","Mercury","Mars"],"a":"Venus"}
         ],
-        "Exoplanet Knowledge Quiz": [
+        "Exoplanet Knowledge Quiz":[
             {"q":"First exoplanet discovered in 1992?","options":["PSR B1257+12","Kepler-22b","Proxima Centauri b","TRAPPIST-1e"],"a":"PSR B1257+12"},
             {"q":"Planet with 384 days orbital period?","options":["Kepler-22b","Kepler-452b","TRAPPIST-1e","Gliese 12b"],"a":"Kepler-452b"},
             {"q":"Closest exoplanet to Earth?","options":["Kepler-22b","Proxima Centauri b","TRAPPIST-1e","Gliese 12b"],"a":"Proxima Centauri b"},
@@ -157,7 +170,6 @@ with tab5:
             {"q":"Gliese 12b eccentricity?","options":["0.5","0.02","0.085","0.0"],"a":"0.5"}
         ]
     }
-
     if st.button("Start Quiz"):
         score = 0
         wrong_answers = []
@@ -176,7 +188,7 @@ with tab5:
             for w in wrong_answers:
                 st.write(w)
 
-# ----------------- TAB 6: SpaceBot AI -----------------
+# ----------------- TAB 6: SPACEBOT AI -----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
     user_q = st.text_input("Ask me anything about space or exoplanets:")
@@ -196,23 +208,26 @@ with tab6:
                     break
             st.info(ans)
 
-# ----------------- TAB 7: Solar System Simulation -----------------
+# ----------------- TAB 7: SOLAR SYSTEM SIMULATION -----------------
 with tab7:
     st.header("🌞 Solar System Simulation")
-    st.markdown('<div class="solar-box">Solar System</div>', unsafe_allow_html=True)
     solar_html = """
     <div style="position: relative; width:700px; height:700px; margin:auto;">
-        <div style="width:140px;height:140px;background:radial-gradient(circle at 30% 30%, #fff59d,#ffd700,#ff8c00);border-radius:50%;position:absolute;top:280px;left:280px;box-shadow:0 0 70px yellow;"></div>
+        <div style="width:140px;height:140px;background:radial-gradient(circle at 30% 30%, #fff59d,#ffd700,#ff8c00);
+                    border-radius:50%;position:absolute;top:280px;left:280px;box-shadow:0 0 70px yellow;"></div>
     """
-    colors = ["gray","orange","blue","red","tan","gold","lightblue","darkblue"]
+    colors = ["gray","orange","blue","red","gold","tan","lightblue","darkblue"]
     names = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
-    facts = ["Closest planet to the Sun.","Hottest planet.","Supports life.","Red Planet.","Largest planet.","Beautiful rings.","Rotates sideways.","Strongest winds."]
-    for i, (c, n, f) in enumerate(zip(colors, names, facts)):
+    facts = ["Closest planet to the Sun.","Hottest planet.","Supports life.","Red Planet.",
+             "Largest planet.","Beautiful rings.","Rotates sideways.","Strongest winds."]
+    for i, (c,n,f) in enumerate(zip(colors,names,facts)):
         size = 48
         orbit = 180 + i*70
         solar_html += f"""
-        <div style="position:absolute; width:{orbit}px; height:{orbit}px; border:1px solid rgba(255,255,255,0.12); border-radius:50%; top:{350-orbit//2}px; left:{350-orbit//2}px; animation:spin {8+i*4}s linear infinite;">
-            <div title="{f}" style="width:{size}px; height:{size}px; background:{c}; border-radius:50%; position:absolute; top:-{size//2}px; left:50%; transform:translateX(-50%); box-shadow:0 0 20px #00bfff;"></div>
+        <div style="position:absolute; width:{orbit}px; height:{orbit}px; border:1px solid rgba(255,255,255,0.12);
+                    border-radius:50%; top:{350-orbit//2}px; left:{350-orbit//2}px; animation:spin {8+i*4}s linear infinite;">
+            <div title="{f}" style="width:{size}px; height:{size}px; background:{c}; border-radius:50%;
+                        position:absolute; top:-{size//2}px; left:50%; transform:translateX(-50%); box-shadow:0 0 20px #00bfff;"></div>
             <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:black; font-size:12px;">{n}</div>
         </div>
         """
@@ -223,11 +238,6 @@ with tab7:
     </style>
     """
     st.markdown(solar_html, unsafe_allow_html=True)
-      
-       
-       
-    
-   
 
    
   
