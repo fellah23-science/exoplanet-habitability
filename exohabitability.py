@@ -154,15 +154,16 @@ with tab4:
 with tab5:
     st.header("📝 Assessment Zone")
     quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
+    
     quizzes = {
-        "Space Geek Quiz":[
+        "Space Geek Quiz": [
             {"q":"Which planet is closest to the Sun?","options":["Mercury","Venus","Earth","Mars"],"a":"Mercury"},
             {"q":"Largest planet in the solar system?","options":["Jupiter","Saturn","Earth","Mars"],"a":"Jupiter"},
             {"q":"Planet known as Red Planet?","options":["Venus","Mars","Mercury","Jupiter"],"a":"Mars"},
             {"q":"Which planet rotates sideways?","options":["Uranus","Earth","Venus","Neptune"],"a":"Uranus"},
             {"q":"Hottest planet?","options":["Earth","Venus","Mercury","Mars"],"a":"Venus"}
         ],
-        "Exoplanet Knowledge Quiz":[
+        "Exoplanet Knowledge Quiz": [
             {"q":"First exoplanet discovered in 1992?","options":["PSR B1257+12","Kepler-22b","Proxima Centauri b","TRAPPIST-1e"],"a":"PSR B1257+12"},
             {"q":"Planet with 384 days orbital period?","options":["Kepler-22b","Kepler-452b","TRAPPIST-1e","Gliese 12b"],"a":"Kepler-452b"},
             {"q":"Closest exoplanet to Earth?","options":["Kepler-22b","Proxima Centauri b","TRAPPIST-1e","Gliese 12b"],"a":"Proxima Centauri b"},
@@ -170,7 +171,8 @@ with tab5:
             {"q":"Gliese 12b eccentricity?","options":["0.5","0.02","0.085","0.0"],"a":"0.5"}
         ]
     }
-    if st.button("Start Quiz"):
+
+    if st.button("Submit Quiz"):
         score = 0
         wrong_answers = []
         for idx, q in enumerate(quizzes[quiz_choice]):
@@ -182,13 +184,13 @@ with tab5:
         st.success(f"You scored {score}/{len(quizzes[quiz_choice])}")
         if score >= 3:
             st.balloons()
-            st.info("🌟 Space Geek / Astronomer Level Unlocked!")
+            st.info("🌟 You are a Space Geek / Astronomer!")
         if wrong_answers:
             st.warning("You missed the following:")
             for w in wrong_answers:
                 st.write(w)
 
-# ----------------- TAB 6: SPACEBOT AI -----------------
+# ---------------- TAB 6: SpaceBot AI ----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
     user_q = st.text_input("Ask me anything about space or exoplanets:")
@@ -200,7 +202,12 @@ with tab6:
                 "star":"Stars are glowing balls of gas undergoing nuclear fusion.",
                 "exoplanet":"Exoplanets are planets outside our Solar System.",
                 "galaxy":"Galaxies are vast collections of stars, gas, dust, and dark matter.",
-                "black hole":"Black holes are collapsed massive stars with gravity so strong even light cannot escape."
+                "black hole":"Black holes are collapsed massive stars with gravity so strong even light cannot escape.",
+                "supernova":"A supernova is an explosion of a dying star.",
+                "nebula":"Nebulae are clouds of gas and dust, birthplace of stars.",
+                "habitable zone":"The habitable zone is where liquid water may exist.",
+                "asteroid":"Asteroids are rocky objects orbiting stars.",
+                "comet":"Comets are icy objects with tails when near a star."
             }
             for k,v in keywords.items():
                 if k.lower() in user_q.lower():
@@ -208,26 +215,28 @@ with tab6:
                     break
             st.info(ans)
 
-# ----------------- TAB 7: SOLAR SYSTEM SIMULATION -----------------
+# ---------------- TAB 7: Solar System Simulation ----------------
 with tab7:
     st.header("🌞 Solar System Simulation")
+    st.markdown('<div class="solar-box">Solar System</div>', unsafe_allow_html=True)
+
     solar_html = """
     <div style="position: relative; width:700px; height:700px; margin:auto;">
         <div style="width:140px;height:140px;background:radial-gradient(circle at 30% 30%, #fff59d,#ffd700,#ff8c00);
-                    border-radius:50%;position:absolute;top:280px;left:280px;box-shadow:0 0 70px yellow;"></div>
+        border-radius:50%;position:absolute;top:280px;left:280px;box-shadow:0 0 70px yellow;"></div>
     """
-    colors = ["gray","orange","blue","red","gold","tan","lightblue","darkblue"]
+    colors = ["gray","orange","blue","red","tan","gold","lightblue","darkblue"]
     names = ["Mercury","Venus","Earth","Mars","Jupiter","Saturn","Uranus","Neptune"]
-    facts = ["Closest planet to the Sun.","Hottest planet.","Supports life.","Red Planet.",
-             "Largest planet.","Beautiful rings.","Rotates sideways.","Strongest winds."]
-    for i, (c,n,f) in enumerate(zip(colors,names,facts)):
+    facts = ["Closest planet to the Sun.","Hottest planet.","Supports life.","Red Planet.","Largest planet.","Beautiful rings.","Rotates sideways.","Strongest winds."]
+
+    for i, (c, n, f) in enumerate(zip(colors, names, facts)):
         size = 48
         orbit = 180 + i*70
         solar_html += f"""
-        <div style="position:absolute; width:{orbit}px; height:{orbit}px; border:1px solid rgba(255,255,255,0.12);
-                    border-radius:50%; top:{350-orbit//2}px; left:{350-orbit//2}px; animation:spin {8+i*4}s linear infinite;">
-            <div title="{f}" style="width:{size}px; height:{size}px; background:{c}; border-radius:50%;
-                        position:absolute; top:-{size//2}px; left:50%; transform:translateX(-50%); box-shadow:0 0 20px #00bfff;"></div>
+        <div style="position:absolute; width:{orbit}px; height:{orbit}px; border:1px solid rgba(255,255,255,0.12); border-radius:50%;
+        top:{350-orbit//2}px; left:{350-orbit//2}px; animation:spin {8+i*4}s linear infinite;">
+            <div title="{f}" style="width:{size}px; height:{size}px; background:{c}; border-radius:50%; position:absolute; top:-{size//2}px;
+            left:50%; transform:translateX(-50%); box-shadow:0 0 20px #00bfff;"></div>
             <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:black; font-size:12px;">{n}</div>
         </div>
         """
@@ -239,11 +248,7 @@ with tab7:
     """
     st.markdown(solar_html, unsafe_allow_html=True)
 
-   
-  
 
-    
- 
 
 
 
