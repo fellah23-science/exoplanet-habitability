@@ -3,9 +3,8 @@ import math
 import numpy as np
 import pandas as pd
 import random
-import streamlit.components.v1 as components
 
-# --- CONSTANTS ---
+# ---------------- CONSTANTS ----------------
 G = 6.67430e-11
 sigma = 5.670374419e-8
 M_sun = 1.989e30
@@ -14,11 +13,12 @@ M_earth = 5.972e24
 DAY = 86400.0
 AU = 1.496e11
 
-# --- PAGE SETUP ---
+# ---------------- PAGE SETUP ----------------
 st.set_page_config(page_title="ExoHabit App", layout="wide")
+
 st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
 
-# --- PLANET DATA ---
+# ---------------- PLANET DATA ----------------
 planet_data = [
     {"Planet":"Kepler-22b","Eccentricity":0.72,"Orbital Period (days)":289.86,"Inclination (°)":89.764,
      "Planet Mass (M⊕)":36,"Star Mass (M☉)":0.97,"Star Luminosity (log10 L/L☉)":-0.19},
@@ -33,17 +33,17 @@ planet_data = [
 ]
 df_planets = pd.DataFrame(planet_data)
 
-# --- TABS ---
+# ---------------- TABS ----------------
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes",
     "📝 Assessment Zone", "🤖 SpaceBot AI", "🌞 Solar System Simulation"
 ])
 
-# ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
+# ---------------- TAB 1: HABITABILITY CALCULATOR ----------------
 with tab1:
     st.header("🪐 Habitability Calculator")
     st.write("Input the parameters of any exoplanet or star to calculate its habitability details.")
-    
+
     st.subheader("⭐ Star Properties")
     col1, col2 = st.columns(2)
     with col1:
@@ -51,7 +51,7 @@ with tab1:
         L_star_log = st.number_input("Star Luminosity (log10 L/L☉)", value=0.0)
     with col2:
         st.markdown("")
-    
+
     st.subheader("🌍 Planet Properties")
     col1, col2 = st.columns(2)
     with col1:
@@ -91,137 +91,200 @@ with tab1:
         st.metric("Equilibrium Temperature (K)", f"{T_eq:.1f}")
 
     st.markdown(f"**Habitability:** {habitability}")
+
+# ---------------- TAB 2: EXOPLANET DATA ----------------
+with tab2:
+    st.header("📊 Explore Exoplanet Data")
+    data = {
+        "Planet Name": ["Kepler-22b", "Kepler-452b", "Proxima Centauri b", "TRAPPIST-1e", "Kepler-186f", "Gliese 667 Cc"],
+        "Distance (ly)": [620, 1400, 4.24, 39.6, 490, 23.6],
+        "Orbital Distance (AU)": [0.85, 1.05, 0.05, 0.029, 0.36, 0.125],
+        "Stellar Flux (Earth=1)": [1.11, 1.04, 0.65, 0.66, 0.26, 0.9],
+        "Eccentricity": [0.02, 0.05, 0.15, 0.005, 0.02, 0.1],
+        "Planet Mass (Earth=1)": [2.4, 5.0, 1.3, 0.77, 1.4, 4.5]
+    }
+    df = pd.DataFrame(data)
+    st.dataframe(df, use_container_width=True)
+    csv = df.to_csv(index=False).encode('utf-8')
+    st.download_button("⬇️ Download Exoplanet Data", csv, "exoplanet_data.csv", "text/csv")
+    selected_planet = st.selectbox("🔹 Choose a planet to analyze:", df["Planet Name"])
+    planet_info = df[df["Planet Name"] == selected_planet]
+    st.success(f"✅ Selected: {selected_planet}")
+    st.dataframe(planet_info)
+
+# ---------------- TAB 3: LEARN & DISCOVER ----------------
+with tab3:
+    st.header("💫 Learn & Discover")
+    facts = [
+        "🌠 The first exoplanet was discovered in 1992 around a pulsar called PSR B1257+12.",
+        "🌞 Stars are mostly made of hydrogen and helium — just like our Sun.",
+        "🌍 Over 5,000 exoplanets have been discovered so far!",
+        "💧 The 'habitable zone' is where liquid water might exist.",
+        "🌌 Eccentric orbits can make seasons on exoplanets very long or short.",
+        "🧬 Studying exoplanets helps us understand how life forms elsewhere."
+    ]
+    if st.button("🌟 Show a Space Fact"):
+        st.info(random.choice(facts))
+
+# ---------------- TAB 4: GALAXY NOTES ----------------
+with tab4:
+    st.markdown("<h1>🌌 Galaxy Notes</h1>", unsafe_allow_html=True)
+    st.markdown("""
+    <table>
+        <tr><th>🌠 Cosmic Phenomenon</th><th>✨ Description</th></tr>
+        <tr><td>🕳️ Black Hole</td><td>Formed when a massive star collapses under its own gravity. Its pull is so strong that even light cannot escape!</td></tr>
+        <tr><td>💥 Supernova</td><td>A powerful explosion of a dying star that creates heavy elements like gold and iron.</td></tr>
+        <tr><td>🌠 Nebula</td><td>Beautiful clouds of gas and dust in space — the birthplace of new stars.</td></tr>
+        <tr><td>🌞 Star</td><td>A glowing sphere of hot gas that shines because of nuclear fusion in its core.</td></tr>
+        <tr><td>🪐 Exoplanet</td><td>Planets orbiting stars outside our Solar System. Some could support life!</td></tr>
+        <tr><td>🌌 Galaxy</td><td>Vast systems of stars, gas, dust, and dark matter held together by gravity. We live in the Milky Way Galaxy.</td></tr>
+        <tr><td>🌑 Dark Matter</td><td>Invisible matter that makes up most of the universe’s mass — we can’t see it, but we feel its gravity.</td></tr>
+        <tr><td>⚡ Neutron Star</td><td>What remains after a massive star explodes — tiny but incredibly dense!</td></tr>
+        <tr><td>☀️ Solar System</td><td>Our cosmic neighborhood — one Sun, eight planets, and countless asteroids and comets.</td></tr>
+    </table>
+    """, unsafe_allow_html=True)
+
+# ---------------- TAB 5: ASSESSMENT ZONE ----------------
+with tab5:
+    st.header("📝 Assessment Zone")
+    quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
+    quizzes = {
+        "Space Geek Quiz": [
+            {"q":"Which planet is closest to the Sun?","options":["Mercury","Venus","Earth","Mars"],"a":"Mercury"},
+            {"q":"Largest planet in the solar system?","options":["Jupiter","Saturn","Earth","Mars"],"a":"Jupiter"},
+            {"q":"Planet known as Red Planet?","options":["Venus","Mars","Mercury","Jupiter"],"a":"Mars"},
+            {"q":"Which planet rotates sideways?","options":["Uranus","Earth","Venus","Neptune"],"a":"Uranus"},
+            {"q":"Hottest planet?","options":["Earth","Venus","Mercury","Mars"],"a":"Venus"}
+        ],
+        "Exoplanet Knowledge Quiz": [
+            {"q":"First exoplanet discovered in 1992?","options":["PSR B1257+12","Kepler-22b","Proxima Centauri b","TRAPPIST-1e"],"a":"PSR B1257+12"},
+            {"q":"Planet with 384 days orbital period?","options":["Kepler-22b","Kepler-452b","TRAPPIST-1e","Gliese 12b"],"a":"Kepler-452b"},
+            {"q":"Closest exoplanet to Earth?","options":["Kepler-22b","Proxima Centauri b","TRAPPIST-1e","Gliese 12b"],"a":"Proxima Centauri b"},
+            {"q":"TRAPPIST-1e mass (M⊕)?","options":["0.62","2","36","10"],"a":"0.62"},
+            {"q":"Gliese 12b eccentricity?","options":["0.5","0.02","0.085","0.0"],"a":"0.5"}
+        ]
+    }
+    user_answers = []
+    for idx, q in enumerate(quizzes[quiz_choice]):
+        ans = st.radio(f"Q{idx+1}: {q['q']}", q['options'], key=f"{quiz_choice}_{idx}")
+        user_answers.append(ans)
+    if st.button("Submit Quiz"):
+        score = 0
+        wrong_answers = []
+        for idx, q in enumerate(quizzes[quiz_choice]):
+            if user_answers[idx] == q['a']:
+                score += 1
+            else:
+                wrong_answers.append(f"Q{idx+1}: Correct answer: {q['a']}")
+        st.success(f"You scored {score}/{len(quizzes[quiz_choice])}")
+        if score >= 3:
+            st.balloons()
+            st.info("🌟 You are a Space Geek / Astronomer!")
+        if wrong_answers:
+            st.warning("You missed the following:")
+            for w in wrong_answers:
+                st.write(w)
+
+# ---------------- TAB 6: SPACEBOT AI ----------------
+with tab6:
+    st.header("🤖 SpaceBot AI")
+    user_q = st.text_input("Ask me anything about space or exoplanets:")
+    if st.button("Ask SpaceBot"):
+        if user_q:
+            ans = "Sorry, I don't know the answer. Try asking something else."
+            keywords = {
+                "planet":"Planets are celestial bodies orbiting stars.",
+                "star":"Stars are glowing balls of gas undergoing nuclear fusion.",
+                "exoplanet":"Exoplanets are planets outside our Solar System.",
+                "galaxy":"Galaxies are vast collections of stars, gas, dust, and dark matter.",
+                "black hole":"Black holes are collapsed massive stars with gravity so strong even light cannot escape.",
+                "supernova":"A supernova is an explosion of a dying star.",
+                "nebula":"Nebulae are clouds of gas and dust, birthplace of stars.",
+                "habitable zone":"The habitable zone is where liquid water may exist.",
+                "asteroid":"Asteroids are rocky objects orbiting stars.",
+                "comet":"Comets are icy objects with tails when near a star.",
+                "solar system":"The Solar System consists of the Sun and the planets, moons, asteroids, and comets."
+            }
+            for k,v in keywords.items():
+                if k.lower() in user_q.lower():
+                    ans = v
+                    break
+            st.info(ans)
+
 # ---------------- TAB 7: SOLAR SYSTEM SIMULATION ----------------
 with tab7:
+    # Paste the solar system simulation code here (from the previous message)
     st.markdown('<div class="title-box">🌌 Welcome to Exoplanet Explorer</div>', unsafe_allow_html=True)
     st.markdown('<div class="solar-box">Solar System</div>', unsafe_allow_html=True)
 
-    # ---------------- CSS ONLY FOR TAB 7 ----------------
     st.markdown("""
     <style>
-    /* Solar area only */
-    .solar-container {
-        position: relative;
-        width: 700px;
-        height: 700px;
-        margin: auto;
-        margin-top: 30px;
-        background-color: #0b0c1a;  /* Dark only for simulation */
-        border-radius: 20px;
-    }
-
-    /* Sun */
-    .sun {
-        width: 140px;
-        height: 140px;
-        background: radial-gradient(circle at 30% 30%, #fff59d, #ffd700, #ff8c00);
-        border-radius: 50%;
-        position: absolute;
-        top: 280px;
-        left: 280px;
-        box-shadow: 0 0 70px yellow;
-    }
-
-    /* Orbits */
-    .orbit {
-        position: absolute;
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 50%;
-        animation: spin linear infinite;
-    }
-
-    /* Planets */
-    .planet {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        position: absolute;
-        top: -24px;
-        left: 50%;
-        transform: translateX(-50%);
-        box-shadow: 0 0 20px #00bfff;
-    }
-
-    @keyframes spin {
-        from {transform: rotate(0deg);}
-        to {transform: rotate(360deg);}
-    }
-
-    /* Title */
-    .title-box {
-        text-align: center;
-        font-size: 46px;
-        font-weight: bold;
-        margin-top: 20px;
-        color: white;
-    }
-
-    /* Solar system title box */
-    .solar-box {
-        width: 280px;
-        margin: auto;
-        margin-top: 20px;
-        text-align: center;
-        padding: 15px;
-        border-radius: 18px;
-        background-color: rgba(20,40,90,0.85);
-        box-shadow: 0 0 25px #00bfff;
-        font-size: 30px;
-        font-weight: bold;
-        color: white;
-    }
+    .solar-container {position:relative;width:700px;height:700px;margin:auto;margin-top:30px;
+    background-color:#0b0c1a;border-radius:20px;}
+    .sun {width:140px;height:140px;background:radial-gradient(circle at 30% 30%,#fff59d,#ffd700,#ff8c00);
+    border-radius:50%;position:absolute;top:280px;left:280px;box-shadow:0 0 70px yellow;}
+    .orbit {position:absolute;border:1px solid rgba(255,255,255,0.12);border-radius:50%;animation:spin linear infinite;}
+    .planet {width:48px;height:48px;border-radius:50%;position:absolute;top:-24px;left:50%;transform:translateX(-50%);
+    box-shadow:0 0 20px #00bfff;}
+    @keyframes spin {from {transform:rotate(0deg);}to {transform:rotate(360deg);}}
+    .title-box{text-align:center;font-size:46px;font-weight:bold;margin-top:20px;color:white;}
+    .solar-box{width:280px;margin:auto;margin-top:20px;text-align:center;padding:15px;border-radius:18px;
+    background-color:rgba(20,40,90,0.85);box-shadow:0 0 25px #00bfff;font-size:30px;font-weight:bold;color:white;}
     </style>
     """, unsafe_allow_html=True)
 
-    # ---------------- SOLAR SYSTEM HTML ----------------
     solar_html = """
     <div class="solar-container">
         <div class="sun"></div>
-
         <div class="orbit" style="width:180px;height:180px;top:260px;left:260px;animation-duration:8s;">
             <div class="planet" style="background:gray;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Mercury</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mercury</div>
         </div>
-
         <div class="orbit" style="width:250px;height:250px;top:225px;left:225px;animation-duration:12s;">
             <div class="planet" style="background:orange;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Venus</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Venus</div>
         </div>
-
         <div class="orbit" style="width:320px;height:320px;top:190px;left:190px;animation-duration:16s;">
             <div class="planet" style="background:blue;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Earth</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Earth</div>
         </div>
-
         <div class="orbit" style="width:390px;height:390px;top:155px;left:155px;animation-duration:20s;">
             <div class="planet" style="background:red;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Mars</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mars</div>
         </div>
-
         <div class="orbit" style="width:470px;height:470px;top:115px;left:115px;animation-duration:24s;">
             <div class="planet" style="background:tan;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Jupiter</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Jupiter</div>
         </div>
-
         <div class="orbit" style="width:550px;height:550px;top:75px;left:75px;animation-duration:28s;">
             <div class="planet" style="background:gold;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Saturn</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Saturn</div>
         </div>
-
         <div class="orbit" style="width:620px;height:620px;top:40px;left:40px;animation-duration:32s;">
             <div class="planet" style="background:lightblue;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Uranus</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Uranus</div>
         </div>
-
         <div class="orbit" style="width:680px;height:680px;top:10px;left:10px;animation-duration:36s;">
             <div class="planet" style="background:darkblue;"></div>
-            <div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Neptune</div>
+            <div style="position:absolute;top:-45px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Neptune</div>
         </div>
     </div>
     """
     st.markdown(solar_html, unsafe_allow_html=True)
 
-    # ---------------- FACTS DROPDOWN ----------------
+    planet_facts = {
+        "Mercury": "Mercury is the closest planet to the Sun.",
+        "Venus": "Venus is the hottest planet in the solar system.",
+        "Earth": "Earth is the only known planet that supports life.",
+        "Mars": "Mars is called the Red Planet.",
+        "Jupiter": "Jupiter is the largest planet.",
+        "Saturn": "Saturn has beautiful rings.",
+        "Uranus": "Uranus rotates sideways.",
+        "Neptune": "Neptune has the strongest winds."
+    }
+
     st.markdown("## 🪐 Planet Facts")
     selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
     st.write(planet_facts[selected])
+
+    
