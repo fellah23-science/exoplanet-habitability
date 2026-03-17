@@ -215,7 +215,7 @@ with tab6:
 with tab7:
     st.header("🌞 Solar System Simulation")
 
-    # --- CSS for Solar System ---
+    # --- CSS ---
     st.markdown("""
     <style>
     .solar-container {
@@ -223,7 +223,7 @@ with tab7:
         height:700px;
         margin:auto;
         position:relative;
-        background-color:black;
+        background-color:black;  /* only simulation background */
         border-radius:20px;
     }
     .sun {
@@ -235,6 +235,7 @@ with tab7:
         left:280px;
         background: radial-gradient(circle at 30% 30%, #fff59d, #ffd700, #ff8c00);
         box-shadow:0 0 70px yellow;
+        z-index:10;
     }
     .orbit {
         position:absolute;
@@ -262,7 +263,7 @@ with tab7:
     </style>
     """, unsafe_allow_html=True)
 
-    # --- HTML for Solar System ---
+    # --- HTML for Planets & Orbits ---
     solar_html = """
     <div class="solar-container">
         <div class="sun"></div>
@@ -271,40 +272,46 @@ with tab7:
             <div class="planet" style="background:gray;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mercury</div>
         </div>
+
         <div class="orbit" style="width:250px;height:250px;animation-duration:12s;">
             <div class="planet" style="background:orange;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Venus</div>
         </div>
+
         <div class="orbit" style="width:320px;height:320px;animation-duration:16s;">
             <div class="planet" style="background:blue;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Earth</div>
         </div>
+
         <div class="orbit" style="width:390px;height:390px;animation-duration:20s;">
             <div class="planet" style="background:red;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mars</div>
         </div>
+
         <div class="orbit" style="width:470px;height:470px;animation-duration:24s;">
             <div class="planet" style="background:tan;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Jupiter</div>
         </div>
+
         <div class="orbit" style="width:550px;height:550px;animation-duration:28s;">
             <div class="planet" style="background:gold;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Saturn</div>
         </div>
+
         <div class="orbit" style="width:620px;height:620px;animation-duration:32s;">
             <div class="planet" style="background:lightblue;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Uranus</div>
         </div>
+
         <div class="orbit" style="width:680px;height:680px;animation-duration:36s;">
             <div class="planet" style="background:darkblue;"></div>
             <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Neptune</div>
         </div>
-
     </div>
     """
     st.markdown(solar_html, unsafe_allow_html=True)
 
-    # --- Planet Facts Dropdown ---
+    # --- Planet Facts ---
     planet_facts = {
         "Mercury": "Mercury is the closest planet to the Sun.",
         "Venus": "Venus is the hottest planet in the solar system.",
