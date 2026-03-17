@@ -1,9 +1,5 @@
-# --- CLEAR CACHE ---
-import streamlit as st
-st.cache_data.clear()
-st.cache_resource.clear()
 
-# --- IMPORTS ---
+import streamlit as st
 import math
 import numpy as np
 import pandas as pd
