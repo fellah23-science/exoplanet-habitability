@@ -4,6 +4,17 @@ import numpy as np
 import pandas as pd
 import random
 
+# --- Make background plain white ---
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # --- Constants ---
 G = 6.67430e-11        # Gravitational constant (m^3 kg^-1 s^-2)
 sigma = 5.670374419e-8 # Stefan-Boltzmann constant (W/m^2 K^4)
