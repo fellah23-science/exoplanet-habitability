@@ -34,9 +34,9 @@ planet_data = [
 df_planets = pd.DataFrame(planet_data)
 
 # ---------------- TABS ----------------
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
     "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes",
-    "📝 Assessment Zone", "🤖 SpaceBot AI", "🌞 Solar System Simulation"
+    "📝 Assessment Zone", "🤖 SpaceBot AI".
 ])
 
 # ---------------- TAB 1: HABITABILITY CALCULATOR ----------------
@@ -211,118 +211,3 @@ with tab6:
                     break
             st.info(ans)
 
-# ---------------- TAB 7: SOLAR SYSTEM SIMULATION ----------------
-with tab7:
-    st.header("🌞 Solar System Simulation")
-
-    # --- CSS ---
-    st.markdown("""
-    <style>
-    .solar-container {
-        width:700px;
-        height:700px;
-        margin:auto;
-        position:relative;
-        background-color:black;  /* only simulation background */
-        border-radius:20px;
-    }
-    .sun {
-        width:140px;
-        height:140px;
-        border-radius:50%;
-        position:absolute;
-        top:280px;
-        left:280px;
-        background: radial-gradient(circle at 30% 30%, #fff59d, #ffd700, #ff8c00);
-        box-shadow:0 0 70px yellow;
-        z-index:10;
-    }
-    .orbit {
-        position:absolute;
-        border:1px solid rgba(255,255,255,0.12);
-        border-radius:50%;
-        top:50%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        animation:spin linear infinite;
-    }
-    .planet {
-        width:48px;
-        height:48px;
-        border-radius:50%;
-        position:absolute;
-        top:-24px;
-        left:50%;
-        transform:translateX(-50%);
-        box-shadow:0 0 20px #00bfff;
-    }
-    @keyframes spin {
-        from {transform: rotate(0deg);}
-        to {transform: rotate(360deg);}
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-    # --- HTML for Planets & Orbits ---
-    solar_html = """
-    <div class="solar-container">
-        <div class="sun"></div>
-
-        <div class="orbit" style="width:180px;height:180px;animation-duration:8s;">
-            <div class="planet" style="background:gray;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mercury</div>
-        </div>
-
-        <div class="orbit" style="width:250px;height:250px;animation-duration:12s;">
-            <div class="planet" style="background:orange;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Venus</div>
-        </div>
-
-        <div class="orbit" style="width:320px;height:320px;animation-duration:16s;">
-            <div class="planet" style="background:blue;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Earth</div>
-        </div>
-
-        <div class="orbit" style="width:390px;height:390px;animation-duration:20s;">
-            <div class="planet" style="background:red;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Mars</div>
-        </div>
-
-        <div class="orbit" style="width:470px;height:470px;animation-duration:24s;">
-            <div class="planet" style="background:tan;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Jupiter</div>
-        </div>
-
-        <div class="orbit" style="width:550px;height:550px;animation-duration:28s;">
-            <div class="planet" style="background:gold;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Saturn</div>
-        </div>
-
-        <div class="orbit" style="width:620px;height:620px;animation-duration:32s;">
-            <div class="planet" style="background:lightblue;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Uranus</div>
-        </div>
-
-        <div class="orbit" style="width:680px;height:680px;animation-duration:36s;">
-            <div class="planet" style="background:darkblue;"></div>
-            <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:white;font-size:12px;">Neptune</div>
-        </div>
-    </div>
-    """
-    st.markdown(solar_html, unsafe_allow_html=True)
-
-    # --- Planet Facts ---
-    planet_facts = {
-        "Mercury": "Mercury is the closest planet to the Sun.",
-        "Venus": "Venus is the hottest planet in the solar system.",
-        "Earth": "Earth is the only known planet that supports life.",
-        "Mars": "Mars is called the Red Planet.",
-        "Jupiter": "Jupiter is the largest planet.",
-        "Saturn": "Saturn has beautiful rings.",
-        "Uranus": "Uranus rotates sideways.",
-        "Neptune": "Neptune has the strongest winds."
-    }
-
-    st.markdown("## 🪐 Planet Facts")
-    selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
-    st.write(planet_facts[selected])
