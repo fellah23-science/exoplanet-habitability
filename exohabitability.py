@@ -3,6 +3,8 @@ import math
 import numpy as np
 import pandas as pd
 import random
+import streamlit.components.v1 as components
+
 # ---------------- CONSTANTS ----------------
 G = 6.67430e-11
 sigma = 5.670374419e-8
@@ -236,7 +238,7 @@ with tab6:
 # ---------------- TAB 7: SOLAR SYSTEM SIMULATION ----------------
 with tab7:
     st.header("🌞 Solar System Simulation")
-    
+
     planet_facts = {
         "Mercury": "Mercury is the closest planet to the Sun.",
         "Venus": "Venus is the hottest planet in the solar system.",
@@ -247,20 +249,20 @@ with tab7:
         "Uranus": "Uranus rotates sideways.",
         "Neptune": "Neptune has the strongest winds."
     }
-    
+
+    # Simple orbiting simulation using HTML/CSS
     solar_html = """
     <style>
-    .orbit { position: absolute; border-radius: 50%; animation: rotate linear infinite; }
-    .planet { width: 20px; height: 20px; border-radius: 50%; position: absolute; top: 50%; left: 50%;
-              transform: translate(-50%, -50%); cursor: pointer; }
+    .orbit { position: relative; border-radius: 50%; animation: rotate linear infinite; margin:50px auto;}
+    .planet { width: 20px; height: 20px; border-radius: 50%; position: absolute; top: 0; left: 50%; transform: translateX(-50%);}
     .Mercury { background: gray; animation-duration: 5s; }
     .Venus { background: yellow; animation-duration: 8s; }
     .Earth { background: blue; animation-duration: 10s; }
-    .Mars { background: red; animation-duration: 15s; }
-    .Jupiter { background: orange; animation-duration: 20s; }
-    .Saturn { background: #f5deb3; animation-duration: 25s; }
-    .Uranus { background: #00ffff; animation-duration: 30s; }
-    .Neptune { background: #0000ff; animation-duration: 35s; }
+    .Mars { background: red; animation-duration: 12s; }
+    .Jupiter { background: orange; animation-duration: 14s; }
+    .Saturn { background: #f5deb3; animation-duration: 16s; }
+    .Uranus { background: #00ffff; animation-duration: 18s; }
+    .Neptune { background: #0000ff; animation-duration: 20s; }
     @keyframes rotate { from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
                         to { transform: rotate(360deg) translateX(100px) rotate(-360deg); } }
     </style>
@@ -274,6 +276,6 @@ with tab7:
     <div class="orbit Neptune"><div class="planet Neptune" title="Neptune"></div></div>
     """
     components.html(solar_html, height=600)
-    
+
     selected = st.selectbox("🪐 Choose a planet", list(planet_facts.keys()))
     st.write(planet_facts[selected])
