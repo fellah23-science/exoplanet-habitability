@@ -18,8 +18,7 @@ AU = 1.496e11
 st.set_page_config(page_title="ExoHabit App", layout="wide")
 st.markdown("""
 <style>
-body {background-color: #0b0c1a; color: white; font-family: sans-serif;}
-.stApp {background-color: #0b0c1a;}
+body {background-color: #0b0c1a; color: white; font-family: sans-serif;
 .title-box {font-size:2rem; text-align:center; margin-bottom:20px;}
 </style>
 """, unsafe_allow_html=True)
@@ -235,7 +234,6 @@ with tab6:
                     break
             st.info(ans)
 
-# ---------------- TAB 7: SOLAR SYSTEM SIMULATION ----------------
 with tab7:
     st.header("🌞 Solar System Simulation")
 
@@ -250,32 +248,75 @@ with tab7:
         "Neptune": "Neptune has the strongest winds."
     }
 
-    # Simple orbiting simulation using HTML/CSS
     solar_html = """
     <style>
-    .orbit { position: relative; border-radius: 50%; animation: rotate linear infinite; margin:50px auto;}
-    .planet { width: 20px; height: 20px; border-radius: 50%; position: absolute; top: 0; left: 50%; transform: translateX(-50%);}
-    .Mercury { background: gray; animation-duration: 5s; }
-    .Venus { background: yellow; animation-duration: 8s; }
-    .Earth { background: blue; animation-duration: 10s; }
-    .Mars { background: red; animation-duration: 12s; }
-    .Jupiter { background: orange; animation-duration: 14s; }
-    .Saturn { background: #f5deb3; animation-duration: 16s; }
-    .Uranus { background: #00ffff; animation-duration: 18s; }
-    .Neptune { background: #0000ff; animation-duration: 20s; }
-    @keyframes rotate { from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
-                        to { transform: rotate(360deg) translateX(100px) rotate(-360deg); } }
+    .solar-system {
+        background-color: #0b0c1a;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+    .sun {
+        width: 50px;
+        height: 50px;
+        background: yellow;
+        border-radius: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 30px 10px yellow;
+        z-index: 100;
+    }
+    .orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        transform-origin: center center;
+    }
+    .planet {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 0 10px #fff;
+    }
+    .Mercury { background: gray; animation: rotateMerc 5s linear infinite; }
+    .Venus { background: yellow; animation: rotateVen 8s linear infinite; }
+    .Earth { background: blue; animation: rotateEar 10s linear infinite; }
+    .Mars { background: red; animation: rotateMar 12s linear infinite; }
+    .Jupiter { background: orange; animation: rotateJup 14s linear infinite; }
+    .Saturn { background: #f5deb3; animation: rotateSat 16s linear infinite; }
+    .Uranus { background: #00ffff; animation: rotateUra 18s linear infinite; }
+    .Neptune { background: #0000ff; animation: rotateNep 20s linear infinite; }
+
+    @keyframes rotateMerc { from { transform: rotate(0deg) translateX(60px) rotate(0deg);} to { transform: rotate(360deg) translateX(60px) rotate(-360deg);}}
+    @keyframes rotateVen { from { transform: rotate(0deg) translateX(80px) rotate(0deg);} to { transform: rotate(360deg) translateX(80px) rotate(-360deg);}}
+    @keyframes rotateEar { from { transform: rotate(0deg) translateX(100px) rotate(0deg);} to { transform: rotate(360deg) translateX(100px) rotate(-360deg);}}
+    @keyframes rotateMar { from { transform: rotate(0deg) translateX(120px) rotate(0deg);} to { transform: rotate(360deg) translateX(120px) rotate(-360deg);}}
+    @keyframes rotateJup { from { transform: rotate(0deg) translateX(160px) rotate(0deg);} to { transform: rotate(360deg) translateX(160px) rotate(-360deg);}}
+    @keyframes rotateSat { from { transform: rotate(0deg) translateX(190px) rotate(0deg);} to { transform: rotate(360deg) translateX(190px) rotate(-360deg);}}
+    @keyframes rotateUra { from { transform: rotate(0deg) translateX(220px) rotate(0deg);} to { transform: rotate(360deg) translateX(220px) rotate(-360deg);}}
+    @keyframes rotateNep { from { transform: rotate(0deg) translateX(250px) rotate(0deg);} to { transform: rotate(360deg) translateX(250px) rotate(-360deg);}}
     </style>
-    <div class="orbit Mercury"><div class="planet Mercury" title="Mercury"></div></div>
-    <div class="orbit Venus"><div class="planet Venus" title="Venus"></div></div>
-    <div class="orbit Earth"><div class="planet Earth" title="Earth"></div></div>
-    <div class="orbit Mars"><div class="planet Mars" title="Mars"></div></div>
-    <div class="orbit Jupiter"><div class="planet Jupiter" title="Jupiter"></div></div>
-    <div class="orbit Saturn"><div class="planet Saturn" title="Saturn"></div></div>
-    <div class="orbit Uranus"><div class="planet Uranus" title="Uranus"></div></div>
-    <div class="orbit Neptune"><div class="planet Neptune" title="Neptune"></div></div>
+
+    <div class="solar-system" style="height:600px; position:relative;">
+        <div class="sun"></div>
+        <div class="orbit Mercury"><div class="planet Mercury" title="Mercury"></div></div>
+        <div class="orbit Venus"><div class="planet Venus" title="Venus"></div></div>
+        <div class="orbit Earth"><div class="planet Earth" title="Earth"></div></div>
+        <div class="orbit Mars"><div class="planet Mars" title="Mars"></div></div>
+        <div class="orbit Jupiter"><div class="planet Jupiter" title="Jupiter"></div></div>
+        <div class="orbit Saturn"><div class="planet Saturn" title="Saturn"></div></div>
+        <div class="orbit Uranus"><div class="planet Uranus" title="Uranus"></div></div>
+        <div class="orbit Neptune"><div class="planet Neptune" title="Neptune"></div></div>
+    </div>
     """
-    components.html(solar_html, height=600)
+    components.html(solar_html, height=620)
 
     selected = st.selectbox("🪐 Choose a planet", list(planet_facts.keys()))
     st.write(planet_facts[selected])
