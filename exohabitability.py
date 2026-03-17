@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import random
 
-# ---------------- CONSTANTS ----------------
+# --- CONSTANTS ---
 G = 6.67430e-11
 sigma = 5.670374419e-8
 M_sun = 1.989e30
@@ -13,12 +13,11 @@ M_earth = 5.972e24
 DAY = 86400.0
 AU = 1.496e11
 
-# ---------------- PAGE SETUP ----------------
+# --- PAGE SETUP ---
 st.set_page_config(page_title="ExoHabit App", layout="wide")
-
 st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
 
-# ---------------- PLANET DATA ----------------
+# --- PLANET DATA ---
 planet_data = [
     {"Planet":"Kepler-22b","Eccentricity":0.72,"Orbital Period (days)":289.86,"Inclination (°)":89.764,
      "Planet Mass (M⊕)":36,"Star Mass (M☉)":0.97,"Star Luminosity (log10 L/L☉)":-0.19},
@@ -33,13 +32,13 @@ planet_data = [
 ]
 df_planets = pd.DataFrame(planet_data)
 
-# ---------------- TABS ----------------
+# --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-    "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes",
-    "📝 Assessment Zone", "🤖 SpaceBot AI".
+    "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover",
+    "🌌 Galaxy Notes", "📝 Assessment Zone", "🤖 SpaceBot AI"
 ])
 
-# ---------------- TAB 1: HABITABILITY CALCULATOR ----------------
+# ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
 with tab1:
     st.header("🪐 Habitability Calculator")
     st.write("Input the parameters of any exoplanet or star to calculate its habitability details.")
@@ -92,7 +91,7 @@ with tab1:
 
     st.markdown(f"**Habitability:** {habitability}")
 
-# ---------------- TAB 2: EXOPLANET DATA ----------------
+# ----------------- TAB 2: EXOPLANET DATA -----------------
 with tab2:
     st.header("📊 Explore Exoplanet Data")
     data = {
@@ -105,14 +104,16 @@ with tab2:
     }
     df = pd.DataFrame(data)
     st.dataframe(df, use_container_width=True)
+
     csv = df.to_csv(index=False).encode('utf-8')
     st.download_button("⬇️ Download Exoplanet Data", csv, "exoplanet_data.csv", "text/csv")
+
     selected_planet = st.selectbox("🔹 Choose a planet to analyze:", df["Planet Name"])
     planet_info = df[df["Planet Name"] == selected_planet]
     st.success(f"✅ Selected: {selected_planet}")
     st.dataframe(planet_info)
 
-# ---------------- TAB 3: LEARN & DISCOVER ----------------
+# ----------------- TAB 3: LEARN & DISCOVER -----------------
 with tab3:
     st.header("💫 Learn & Discover")
     facts = [
@@ -126,9 +127,9 @@ with tab3:
     if st.button("🌟 Show a Space Fact"):
         st.info(random.choice(facts))
 
-# ---------------- TAB 4: GALAXY NOTES ----------------
+# ----------------- TAB 4: GALAXY NOTES -----------------
 with tab4:
-    st.markdown("<h1>🌌 Galaxy Notes</h1>", unsafe_allow_html=True)
+    st.markdown("<h1>🌌 Galaxy Notes </h1>", unsafe_allow_html=True)
     st.markdown("""
     <table>
         <tr><th>🌠 Cosmic Phenomenon</th><th>✨ Description</th></tr>
@@ -144,10 +145,11 @@ with tab4:
     </table>
     """, unsafe_allow_html=True)
 
-# ---------------- TAB 5: ASSESSMENT ZONE ----------------
+# ----------------- TAB 5: ASSESSMENT ZONE -----------------
 with tab5:
     st.header("📝 Assessment Zone")
     quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
+
     quizzes = {
         "Space Geek Quiz": [
             {"q":"Which planet is closest to the Sun?","options":["Mercury","Venus","Earth","Mars"],"a":"Mercury"},
@@ -164,10 +166,12 @@ with tab5:
             {"q":"Gliese 12b eccentricity?","options":["0.5","0.02","0.085","0.0"],"a":"0.5"}
         ]
     }
+
     user_answers = []
     for idx, q in enumerate(quizzes[quiz_choice]):
         ans = st.radio(f"Q{idx+1}: {q['q']}", q['options'], key=f"{quiz_choice}_{idx}")
         user_answers.append(ans)
+
     if st.button("Submit Quiz"):
         score = 0
         wrong_answers = []
@@ -185,7 +189,7 @@ with tab5:
             for w in wrong_answers:
                 st.write(w)
 
-# ---------------- TAB 6: SPACEBOT AI ----------------
+# ----------------- TAB 6: SPACEBOT AI -----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
     user_q = st.text_input("Ask me anything about space or exoplanets:")
@@ -203,7 +207,8 @@ with tab6:
                 "habitable zone":"The habitable zone is where liquid water may exist.",
                 "asteroid":"Asteroids are rocky objects orbiting stars.",
                 "comet":"Comets are icy objects with tails when near a star.",
-                "solar system":"The Solar System consists of the Sun and the planets, moons, asteroids, and comets."
+                "pulsar":"Pulsars are rapidly spinning neutron stars that emit beams of radiation.",
+                "telescope":"Telescopes allow astronomers to observe distant objects in space."
             }
             for k,v in keywords.items():
                 if k.lower() in user_q.lower():
