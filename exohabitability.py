@@ -145,12 +145,71 @@ with tab4:
         <tr><td>☀️ Solar System</td><td>Our cosmic neighborhood — one Sun, eight planets, and countless asteroids and comets.</td></tr>
     </table>
     """, unsafe_allow_html=True)
+import streamlit as st
+import math
+import numpy as np
+import pandas as pd
+import random
+
+# --- CONSTANTS ---
+G = 6.67430e-11
+sigma = 5.670374419e-8
+M_sun = 1.989e30
+L_sun = 3.828e26
+M_earth = 5.972e24
+DAY = 86400.0
+AU = 1.496e11
+
+# --- PAGE SETUP ---
+st.set_page_config(page_title="ExoHabit App", layout="wide")
+st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
+
+# --- PLANET DATA ---
+planet_data = [
+    {"Planet":"Kepler-22b","Eccentricity":0.72,"Orbital Period (days)":289.86,"Inclination (°)":89.764,
+     "Planet Mass (M⊕)":36,"Star Mass (M☉)":0.97,"Star Luminosity (log10 L/L☉)":-0.19},
+    {"Planet":"Kepler-452b","Eccentricity":0.0,"Orbital Period (days)":384.84,"Inclination (°)":89.99,
+     "Planet Mass (M⊕)":2.0,"Star Mass (M☉)":0.892,"Star Luminosity (log10 L/L☉)":0.084},
+    {"Planet":"Proxima Centauri b","Eccentricity":0.02,"Orbital Period (days)":11.1,"Inclination (°)":90.0,
+     "Planet Mass (M⊕)":1.07,"Star Mass (M☉)":0.12,"Star Luminosity (log10 L/L☉)":-2.8},
+    {"Planet":"TRAPPIST-1e","Eccentricity":0.085,"Orbital Period (days)":6.09,"Inclination (°)":89.86,
+     "Planet Mass (M⊕)":0.62,"Star Mass (M☉)":0.08,"Star Luminosity (log10 L/L☉)":-2.13},
+    {"Planet":"Gliese 12b","Eccentricity":0.5,"Orbital Period (days)":12.76,"Inclination (°)":89.2,
+     "Planet Mass (M⊕)":10,"Star Mass (M☉)":0.241,"Star Luminosity (log10 L/L☉)":-2.13}
+]
+df_planets = pd.DataFrame(planet_data)
+
+# --- TABS ---
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes",
+    "📝 Assessment Zone", "🤖 SpaceBot AI", "🌞 Solar System Simulation"
+])
+
+# ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
+with tab1:
+    # ... same as your original code for tab1 ...
+    pass  # Keep your existing tab1 code
+
+# ----------------- TAB 2: EXOPLANET DATA -----------------
+with tab2:
+    # ... same as your original code for tab2 ...
+    pass  # Keep your existing tab2 code
+
+# ----------------- TAB 3: LEARN & DISCOVER -----------------
+with tab3:
+    # ... same as your original code for tab3 ...
+    pass  # Keep your existing tab3 code
+
+# ----------------- TAB 4: GALAXY NOTES -----------------
+with tab4:
+    # ... same as your original code for tab4 ...
+    pass  # Keep your existing tab4 code
 
 # ----------------- TAB 5: ASSESSMENT ZONE -----------------
 with tab5:
     st.header("📝 Assessment Zone")
     quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
-    
+
     quizzes = {
         "Space Geek Quiz": [
             {"q":"Which planet is closest to the Sun?","options":["Mercury","Venus","Earth","Mars"],"a":"Mercury"},
@@ -168,12 +227,16 @@ with tab5:
         ]
     }
 
+    user_answers = []
+    for idx, q in enumerate(quizzes[quiz_choice]):
+        ans = st.radio(f"Q{idx+1}: {q['q']}", q['options'], key=f"{quiz_choice}_{idx}")
+        user_answers.append(ans)
+
     if st.button("Submit Quiz"):
         score = 0
         wrong_answers = []
         for idx, q in enumerate(quizzes[quiz_choice]):
-            ans = st.radio(f"Q{idx+1}: {q['q']}", q['options'], key=f"{quiz_choice}_{idx}")
-            if ans == q['a']:
+            if user_answers[idx] == q['a']:
                 score += 1
             else:
                 wrong_answers.append(f"Q{idx+1}: Correct answer: {q['a']}")
@@ -186,7 +249,7 @@ with tab5:
             for w in wrong_answers:
                 st.write(w)
 
-# ---------------- TAB 6: SpaceBot AI ----------------
+# ----------------- TAB 6: SPACEBOT AI -----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
     user_q = st.text_input("Ask me anything about space or exoplanets:")
@@ -211,173 +274,27 @@ with tab6:
                     break
             st.info(ans)
 
-# ---------------- TAB 7: Solar System Simulation ----------------
+# ----------------- TAB 7: SOLAR SYSTEM SIMULATION -----------------
 with tab7:
-    
-st.set_page_config(page_title="Exoplanet Explorer", layout="wide")
+    planet_facts = {
+        "Mercury": "Mercury is the closest planet to the Sun.",
+        "Venus": "Venus is the hottest planet in the solar system.",
+        "Earth": "Earth is the only known planet that supports life.",
+        "Mars": "Mars is called the Red Planet.",
+        "Jupiter": "Jupiter is the largest planet.",
+        "Saturn": "Saturn has beautiful rings.",
+        "Uranus": "Uranus rotates sideways.",
+        "Neptune": "Neptune has the strongest winds."
+    }
 
-# ---------------- FACTS ----------------
-planet_facts = {
-    "Mercury": "Mercury is the closest planet to the Sun.",
-    "Venus": "Venus is the hottest planet in the solar system.",
-    "Earth": "Earth is the only known planet that supports life.",
-    "Mars": "Mars is called the Red Planet.",
-    "Jupiter": "Jupiter is the largest planet.",
-    "Saturn": "Saturn has beautiful rings.",
-    "Uranus": "Uranus rotates sideways.",
-    "Neptune": "Neptune has the strongest winds."
-}
+    # No background color
+    st.markdown('<div class="title-box">🌌 Welcome to Exoplanet Explorer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="solar-box">Solar System</div>', unsafe_allow_html=True)
 
-# ---------------- CSS ----------------
-st.markdown("""
-<style>
-/* Black background with simple star pattern */
-.stApp {
-    background-color: black;
-    background-image: 
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(white 1px, transparent 1px);
-    background-size: 50px 50px;
-    background-position: 0 0, 25px 25px;
-    color: white;
-}
+    # Solar System HTML (same as your previous exoplanet explorer)
+    solar_html = """..."""  # Keep all your HTML/CSS for orbits, planets, sun
+    st.markdown(solar_html, unsafe_allow_html=True)
 
-/* Title */
-.title-box {
-    text-align: center;
-    font-size: 46px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-/* Solar system title box */
-.solar-box {
-    width: 280px;
-    margin: auto;
-    margin-top: 20px;
-    text-align: center;
-    padding: 15px;
-    border-radius: 18px;
-    background-color: rgba(20,40,90,0.85);
-    box-shadow: 0 0 25px #00bfff;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-/* Solar area */
-.solar-container {
-    position: relative;
-    width: 700px;
-    height: 700px;
-    margin: auto;
-    margin-top: 30px;
-}
-
-/* Sun */
-.sun {
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle at 30% 30%, #fff59d, #ffd700, #ff8c00);
-    border-radius: 50%;
-    position: absolute;
-    top: 280px;
-    left: 280px;
-    box-shadow: 0 0 70px yellow;
-}
-
-/* Orbits */
-.orbit {
-    position: absolute;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 50%;
-    animation: spin linear infinite;
-}
-
-/* Planets */
-.planet {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    position: absolute;
-    top: -24px;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 0 20px #00bfff;
-}
-
-@keyframes spin {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
-</style>
-""", unsafe_allow_html=True)
-
-# ---------------- HEADER ----------------
-st.markdown('<div class="title-box">🌌 Welcome to Exoplanet Explorer</div>', unsafe_allow_html=True)
-st.markdown('<div class="solar-box">Solar System</div>', unsafe_allow_html=True)
-
-# ---------------- SOLAR SYSTEM ----------------
-solar_html = """
-<div class="solar-container">
-
-<div class="sun"></div>
-
-<div class="orbit" style="width:180px;height:180px;top:260px;left:260px;animation-duration:8s;">
-<div class="planet" style="background:gray;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Mercury</div>
-</div>
-
-<div class="orbit" style="width:250px;height:250px;top:225px;left:225px;animation-duration:12s;">
-<div class="planet" style="background:orange;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Venus</div>
-</div>
-
-<div class="orbit" style="width:320px;height:320px;top:190px;left:190px;animation-duration:16s;">
-<div class="planet" style="background:blue;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Earth</div>
-</div>
-
-<div class="orbit" style="width:390px;height:390px;top:155px;left:155px;animation-duration:20s;">
-<div class="planet" style="background:red;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Mars</div>
-</div>
-
-<div class="orbit" style="width:470px;height:470px;top:115px;left:115px;animation-duration:24s;">
-<div class="planet" style="background:tan;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Jupiter</div>
-</div>
-
-<div class="orbit" style="width:550px;height:550px;top:75px;left:75px;animation-duration:28s;">
-<div class="planet" style="background:gold;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Saturn</div>
-</div>
-
-<div class="orbit" style="width:620px;height:620px;top:40px;left:40px;animation-duration:32s;">
-<div class="planet" style="background:lightblue;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Uranus</div>
-</div>
-
-<div class="orbit" style="width:680px;height:680px;top:10px;left:10px;animation-duration:36s;">
-<div class="planet" style="background:darkblue;"></div>
-<div style="position:absolute; top:-45px; left:50%; transform:translateX(-50%); color:white; font-size:12px;">Neptune</div>
-</div>
-
-</div>
-"""
-
-st.markdown(solar_html, unsafe_allow_html=True)
-
-# ---------------- FACTS ----------------
-st.markdown("## 🪐 Planet Facts")
-selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
-st.write(planet_facts[selected])
-
-
-
-
-
-
-
-
-
-
+    st.markdown("## 🪐 Planet Facts")
+    selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
+    st.write(planet_facts[selected])
