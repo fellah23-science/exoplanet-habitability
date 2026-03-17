@@ -34,7 +34,7 @@ planet_data = [
 df_planets = pd.DataFrame(planet_data)
 
 # --- Tabs ---
-tab1, tab2, tab3, tab4,tab5,tab6,tab7 = st.tabs(["🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes","📝 Assessment Zone","🤖 SpaceBot AI", "🌞 Solar System Simulation"])
+tab1, tab2, tab3, tab4,tab5,tab6,tab7= st.tabs(["🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover", "🌌 Galaxy Notes""📝 Assessment Zone", "🤖 SpaceBot AI","🌞 Solar System Simulation"])
 
 # --- TAB 1: Habitability Calculator ---
 with tab1:
@@ -227,6 +227,8 @@ with tab4:
         <tr><td>☀️ Solar System</td><td>Our cosmic neighborhood — one Sun, eight planets, and countless asteroids and comets.</td></tr>
     </table>
     """, unsafe_allow_html=True)
+
+
      tab5:
     st.header("📝 Assessment Zone")
     quiz_choice = st.radio("Select a Quiz:", ["Space Geek Quiz", "Exoplanet Knowledge Quiz"])
