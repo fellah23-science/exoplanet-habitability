@@ -107,6 +107,7 @@ with tab7:
         "Neptune": "Neptune has the strongest winds."
     }
 
+    # Dark div only inside Tab 7
     solar_html = """
     <style>
     .solar-system {
