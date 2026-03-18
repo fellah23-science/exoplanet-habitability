@@ -215,8 +215,19 @@ with tab6:
                     ans = v
                     break
             st.info(ans)
-with tab7:
+            with tab7:
     import streamlit.components.v1 as components
+
+    # Only Tab 7 black background
+    st.markdown("""
+        <style>
+        div[data-testid="stVerticalBlock"]:has(div iframe) {
+            background-color: black;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
     st.subheader("🌌 Planetarium View")
 
@@ -236,11 +247,10 @@ with tab7:
         width:1250px;
         height:950px;
         margin:auto;
-        background:radial-gradient(circle at center, #050510, #000000 70%);
+        background:black;
         overflow:hidden;
     }
 
-    /* Dense stars */
     .star {
         position:absolute;
         border-radius:50%;
@@ -253,35 +263,33 @@ with tab7:
         to { opacity:1; }
     }
 
-    /* Sun */
     .sun {
         position:absolute;
         top:50%;
         left:50%;
-        width:55px;
-        height:55px;
-        margin-left:-27px;
-        margin-top:-27px;
+        width:60px;
+        height:60px;
+        margin-left:-30px;
+        margin-top:-30px;
         background:radial-gradient(circle, yellow, orange, darkorange);
         border-radius:50%;
-        box-shadow:0 0 80px yellow;
+        box-shadow:0 0 90px yellow;
     }
 
-    /* Orbit rings */
     .orbit {
         position:absolute;
-        border:1px solid rgba(255,255,255,0.12);
+        border:1px solid rgba(255,255,255,0.25);
         border-radius:50%;
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
     }
 
-    /* Planets */
     .planet {
         position:absolute;
         border-radius:50%;
         transition: transform 0.3s;
+        box-shadow: inset -3px -3px 5px rgba(0,0,0,0.4);
     }
 
     .planet:hover {
@@ -289,17 +297,15 @@ with tab7:
         box-shadow:0 0 20px white;
     }
 
-    /* Labels */
     .label {
         position:absolute;
         color:white;
         font-size:12px;
-        left:22px;
+        left:24px;
         top:-2px;
         white-space:nowrap;
     }
 
-    /* Orbit sizes */
     .mercury-orbit { width:130px; height:130px; animation:spin 5s linear infinite; }
     .venus-orbit { width:200px; height:200px; animation:spin 8s linear infinite; }
     .earth-orbit { width:270px; height:270px; animation:spin 12s linear infinite; }
@@ -309,7 +315,6 @@ with tab7:
     .uranus-orbit { width:760px; height:760px; animation:spin 42s linear infinite; }
     .neptune-orbit { width:900px; height:900px; animation:spin 54s linear infinite; }
 
-    /* Planet appearances */
     .mercury { width:10px; height:10px; top:50%; left:-5px; background:radial-gradient(circle, lightgray, gray); }
     .venus { width:14px; height:14px; top:50%; left:-7px; background:radial-gradient(circle, #ffd27f, orange); }
     .earth { width:17px; height:17px; top:50%; left:-8px; background:radial-gradient(circle, #66ccff, blue); }
@@ -319,7 +324,6 @@ with tab7:
     .uranus { width:21px; height:21px; top:50%; left:-10px; background:radial-gradient(circle, #ccffff, lightblue); }
     .neptune { width:21px; height:21px; top:50%; left:-10px; background:radial-gradient(circle, #6699ff, darkblue); }
 
-    /* Saturn ring */
     .ring {
         position:absolute;
         width:38px;
@@ -331,12 +335,11 @@ with tab7:
         transform:rotate(20deg);
     }
 
-    /* Moon */
     .moon-orbit {
         position:absolute;
         width:34px;
         height:34px;
-        border:1px dashed rgba(255,255,255,0.12);
+        border:1px dashed rgba(255,255,255,0.18);
         border-radius:50%;
         top:-8px;
         left:-8px;
@@ -361,29 +364,28 @@ with tab7:
         top:-8px;
     }
 
-    /* Red comet */
     .comet {
         position:absolute;
         width:12px;
         height:12px;
         background:red;
         border-radius:50%;
-        box-shadow:0 0 25px red;
-        animation: cometmove 6s linear infinite;
+        box-shadow:0 0 30px red;
+        animation: cometmove 4s linear infinite;
     }
 
     .comet-tail {
         position:absolute;
-        width:80px;
+        width:90px;
         height:3px;
         background:linear-gradient(to left, red, transparent);
         top:4px;
-        left:-75px;
+        left:-85px;
     }
 
     @keyframes cometmove {
-        0% { left:-50px; top:120px; }
-        100% { left:1250px; top:820px; }
+        0% { left:-100px; top:100px; }
+        100% { left:1300px; top:850px; }
     }
 
     @keyframes spin {
@@ -396,13 +398,10 @@ with tab7:
     <body>
     <div class="space">
 
-    <!-- Stars -->
     <div class="star" style="width:2px;height:2px;top:70px;left:100px;"></div>
     <div class="star" style="width:3px;height:3px;top:140px;left:400px;"></div>
     <div class="star" style="width:2px;height:2px;top:250px;left:900px;"></div>
     <div class="star" style="width:3px;height:3px;top:700px;left:250px;"></div>
-    <div class="star" style="width:2px;height:2px;top:500px;left:1050px;"></div>
-    <div class="star" style="width:2px;height:2px;top:820px;left:700px;"></div>
 
     <div class="sun"></div>
 
