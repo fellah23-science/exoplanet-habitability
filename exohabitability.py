@@ -228,18 +228,19 @@ with tab7:
     """, unsafe_allow_html=True)
 
     st.subheader("🌌 Planetarium View")
+
     solar_html = """
     <!DOCTYPE html>
     <html>
     <head>
     <style>
-    body {
+    body{
         margin:0;
         background:black;
         overflow:hidden;
     }
 
-    .space {
+    .space{
         position:relative;
         width:1250px;
         height:950px;
@@ -248,53 +249,53 @@ with tab7:
         overflow:hidden;
     }
 
-    .star {
+    .star{
         position:absolute;
-        border-radius:50%;
         background:white;
-        animation: twinkle 3s infinite alternate;
+        border-radius:50%;
+        animation:twinkle 3s infinite alternate;
     }
 
-    @keyframes twinkle {
-        from { opacity:0.2; }
-        to { opacity:1; }
+    @keyframes twinkle{
+        from{opacity:0.2;}
+        to{opacity:1;}
     }
 
-    .sun {
+    .sun{
         position:absolute;
         top:50%;
         left:50%;
-        width:60px;
-        height:60px;
-        margin-left:-30px;
-        margin-top:-30px;
-        background:radial-gradient(circle, yellow, orange, darkorange);
+        width:75px;
+        height:75px;
+        margin-left:-37px;
+        margin-top:-37px;
+        background:radial-gradient(circle,yellow,orange,darkorange);
         border-radius:50%;
-        box-shadow:0 0 90px yellow;
+        box-shadow:0 0 140px yellow;
     }
 
-    .orbit {
+    .orbit{
         position:absolute;
-        border:1px solid rgba(255,255,255,0.25);
+        border:1px solid rgba(255,255,255,0.22);
         border-radius:50%;
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
     }
 
-    .planet {
+    .planet{
         position:absolute;
         border-radius:50%;
-        transition: transform 0.3s;
-        box-shadow: inset -3px -3px 5px rgba(0,0,0,0.4);
+        transition:0.3s;
+        box-shadow: inset -4px -4px 6px rgba(0,0,0,0.45);
     }
 
-    .planet:hover {
+    .planet:hover{
         transform:scale(1.4);
-        box-shadow:0 0 20px white;
+        box-shadow:0 0 22px white;
     }
 
-    .label {
+    .label{
         position:absolute;
         color:white;
         font-size:12px;
@@ -303,25 +304,25 @@ with tab7:
         white-space:nowrap;
     }
 
-    .mercury-orbit { width:130px; height:130px; animation:spin 5s linear infinite; }
-    .venus-orbit { width:200px; height:200px; animation:spin 8s linear infinite; }
-    .earth-orbit { width:270px; height:270px; animation:spin 12s linear infinite; }
-    .mars-orbit { width:340px; height:340px; animation:spin 16s linear infinite; }
-    .jupiter-orbit { width:470px; height:470px; animation:spin 24s linear infinite; }
-    .saturn-orbit { width:610px; height:610px; animation:spin 32s linear infinite; }
-    .uranus-orbit { width:760px; height:760px; animation:spin 42s linear infinite; }
-    .neptune-orbit { width:900px; height:900px; animation:spin 54s linear infinite; }
+    .mercury-orbit{width:130px;height:130px;animation:spin 5s linear infinite;}
+    .venus-orbit{width:200px;height:200px;animation:spin 8s linear infinite;}
+    .earth-orbit{width:270px;height:270px;animation:spin 12s linear infinite;}
+    .mars-orbit{width:340px;height:340px;animation:spin 16s linear infinite;}
+    .jupiter-orbit{width:470px;height:470px;animation:spin 24s linear infinite;}
+    .saturn-orbit{width:610px;height:610px;animation:spin 32s linear infinite;}
+    .uranus-orbit{width:760px;height:760px;animation:spin 42s linear infinite;}
+    .neptune-orbit{width:900px;height:900px;animation:spin 54s linear infinite;}
 
-    .mercury { width:10px; height:10px; top:50%; left:-5px; background:radial-gradient(circle, lightgray, gray); }
-    .venus { width:14px; height:14px; top:50%; left:-7px; background:radial-gradient(circle, #ffd27f, orange); }
-    .earth { width:17px; height:17px; top:50%; left:-8px; background:radial-gradient(circle, #66ccff, blue); }
-    .mars { width:13px; height:13px; top:50%; left:-6px; background:radial-gradient(circle, #ff9999, red); }
-    .jupiter { width:30px; height:30px; top:50%; left:-15px; background:radial-gradient(circle, #d2b48c, brown); }
-    .saturn { width:26px; height:26px; top:50%; left:-13px; background:radial-gradient(circle, #ffe680, gold); }
-    .uranus { width:21px; height:21px; top:50%; left:-10px; background:radial-gradient(circle, #ccffff, lightblue); }
-    .neptune { width:21px; height:21px; top:50%; left:-10px; background:radial-gradient(circle, #6699ff, darkblue); }
+    .mercury{width:10px;height:10px;top:50%;left:-5px;background:radial-gradient(circle,lightgray,gray);}
+    .venus{width:14px;height:14px;top:50%;left:-7px;background:radial-gradient(circle,#ffd27f,orange);}
+    .earth{width:17px;height:17px;top:50%;left:-8px;background:radial-gradient(circle,#66ccff,blue);}
+    .mars{width:13px;height:13px;top:50%;left:-6px;background:radial-gradient(circle,#ff9999,red);}
+    .jupiter{width:30px;height:30px;top:50%;left:-15px;background:radial-gradient(circle,#d2b48c,brown);}
+    .saturn{width:26px;height:26px;top:50%;left:-13px;background:radial-gradient(circle,#ffe680,gold);}
+    .uranus{width:21px;height:21px;top:50%;left:-10px;background:radial-gradient(circle,#ccffff,lightblue);}
+    .neptune{width:21px;height:21px;top:50%;left:-10px;background:radial-gradient(circle,#6699ff,darkblue);}
 
-    .ring {
+    .ring{
         position:absolute;
         width:38px;
         height:12px;
@@ -332,7 +333,7 @@ with tab7:
         transform:rotate(20deg);
     }
 
-    .moon-orbit {
+    .moon-orbit{
         position:absolute;
         width:34px;
         height:34px;
@@ -343,7 +344,7 @@ with tab7:
         animation:spin 2s linear infinite;
     }
 
-    .moon {
+    .moon{
         position:absolute;
         width:5px;
         height:5px;
@@ -353,7 +354,7 @@ with tab7:
         left:-2px;
     }
 
-    .moon-label {
+    .moon-label{
         position:absolute;
         color:white;
         font-size:10px;
@@ -361,33 +362,34 @@ with tab7:
         top:-8px;
     }
 
-    .comet {
+    .comet{
         position:absolute;
         width:12px;
         height:12px;
         background:red;
         border-radius:50%;
-        box-shadow:0 0 30px red;
-        animation: cometmove 4s linear infinite;
+        box-shadow:0 0 35px red;
+        animation:cometmove 5s linear infinite;
     }
 
-    .comet-tail {
+    .comet-tail{
         position:absolute;
         width:90px;
         height:3px;
-        background:linear-gradient(to left, red, transparent);
+        background:linear-gradient(to left,red,transparent);
         top:4px;
         left:-85px;
     }
 
-    @keyframes cometmove {
-        0% { left:-100px; top:100px; }
-        100% { left:1300px; top:850px; }
+    @keyframes cometmove{
+        0%{left:-100px;top:120px;}
+        50%{left:600px;top:350px;}
+        100%{left:1300px;top:850px;}
     }
 
-    @keyframes spin {
-        from { transform:translate(-50%,-50%) rotate(0deg); }
-        to { transform:translate(-50%,-50%) rotate(360deg); }
+    @keyframes spin{
+        from{transform:translate(-50%,-50%) rotate(0deg);}
+        to{transform:translate(-50%,-50%) rotate(360deg);}
     }
     </style>
     </head>
@@ -395,10 +397,36 @@ with tab7:
     <body>
     <div class="space">
 
-    <div class="star" style="width:2px;height:2px;top:70px;left:100px;"></div>
-    <div class="star" style="width:3px;height:3px;top:140px;left:400px;"></div>
-    <div class="star" style="width:2px;height:2px;top:250px;left:900px;"></div>
-    <div class="star" style="width:3px;height:3px;top:700px;left:250px;"></div>
+    <script>
+    for(let i=0;i<350;i++){
+        let s=document.createElement('div');
+        s.className='star';
+        s.style.width=(Math.random()*3)+'px';
+        s.style.height=(Math.random()*3)+'px';
+        s.style.top=(Math.random()*950)+'px';
+        s.style.left=(Math.random()*1250)+'px';
+        document.currentScript.parentElement.appendChild(s);
+    }
+
+    for(let i=0;i<120;i++){
+        let a=document.createElement('div');
+        a.style.position='absolute';
+        a.style.width='2px';
+        a.style.height='2px';
+        a.style.background='gray';
+        a.style.borderRadius='50%';
+
+        let angle=Math.random()*360;
+        let r=410+Math.random()*35;
+        let x=625+r*Math.cos(angle*Math.PI/180);
+        let y=475+r*Math.sin(angle*Math.PI/180);
+
+        a.style.left=x+'px';
+        a.style.top=y+'px';
+
+        document.currentScript.parentElement.appendChild(a);
+    }
+    </script>
 
     <div class="sun"></div>
 
@@ -438,13 +466,13 @@ with tab7:
 
     planet_facts = {
         "Mercury": "Mercury is the closest planet to the Sun.",
-        "Venus": "Venus is the hottest planet.",
-        "Earth": "Earth supports life and has one moon.",
-        "Mars": "Mars contains Olympus Mons.",
-        "Jupiter": "Jupiter is the largest planet.",
-        "Saturn": "Saturn has icy rings.",
-        "Uranus": "Uranus rotates sideways.",
-        "Neptune": "Neptune has extreme winds."
+        "Venus": "Venus is the hottest planet in our solar system.",
+        "Earth": "Earth supports life and has one natural satellite.",
+        "Mars": "Mars contains Olympus Mons, the tallest volcano.",
+        "Jupiter": "Jupiter is the largest planet and has many moons.",
+        "Saturn": "Saturn is famous for its icy rings.",
+        "Uranus": "Uranus rotates on its side.",
+        "Neptune": "Neptune has the fastest winds in the solar system."
     }
 
     selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
