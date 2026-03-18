@@ -188,14 +188,17 @@ with tab5:
             st.warning("You missed the following:")
             for w in wrong_answers:
                 st.write(w)
-
+```python
 # ----------------- TAB 6: SPACEBOT AI -----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
+
     user_q = st.text_input("Ask me anything about space or exoplanets:")
+
     if st.button("Ask SpaceBot"):
         if user_q:
             ans = "Sorry, I don't know the answer. Try asking something else."
+
             keywords = {
                 "planet":"Planets are celestial bodies orbiting stars.",
                 "star":"Stars are glowing balls of gas undergoing nuclear fusion.",
@@ -208,12 +211,74 @@ with tab6:
                 "asteroid":"Asteroids are rocky objects orbiting stars.",
                 "comet":"Comets are icy objects with tails when near a star.",
                 "pulsar":"Pulsars are rapidly spinning neutron stars that emit beams of radiation.",
-                "telescope":"Telescopes allow astronomers to observe distant objects in space."
+                "telescope":"Telescopes allow astronomers to observe distant objects in space.",
+
+                "mercury":"Mercury is the closest planet to the Sun and has extreme temperatures.",
+                "venus":"Venus is the hottest planet because of its thick atmosphere.",
+                "earth":"Earth is the only known planet supporting life.",
+                "mars":"Mars contains Olympus Mons, the tallest volcano in the solar system.",
+                "jupiter":"Jupiter is the largest planet and has the Great Red Spot.",
+                "saturn":"Saturn is famous for its ring system.",
+                "uranus":"Uranus rotates on its side.",
+                "neptune":"Neptune has the strongest winds in the solar system.",
+
+                "pluto":"Pluto is a dwarf planet in the Kuiper Belt.",
+                "moon":"The Moon is Earth's natural satellite.",
+                "full moon":"A full moon occurs when the Moon is fully illuminated.",
+                "new moon":"A new moon occurs when the Moon is between Earth and Sun.",
+                "crescent moon":"A crescent moon appears when less than half is illuminated.",
+                "gibbous moon":"A gibbous moon appears when more than half is illuminated.",
+
+                "lunar eclipse":"A lunar eclipse occurs when Earth blocks sunlight from the Moon.",
+                "solar eclipse":"A solar eclipse occurs when the Moon blocks sunlight from Earth.",
+
+                "titan":"Titan is Saturn's largest moon and has a thick atmosphere.",
+                "europa":"Europa may contain a subsurface ocean.",
+                "ganymede":"Ganymede is the largest moon in the solar system.",
+                "io":"Io is highly volcanic.",
+                "triton":"Triton orbits Neptune backward.",
+
+                "sun":"The Sun is a yellow dwarf star.",
+                "red dwarf":"Red dwarfs are the most common stars.",
+                "yellow dwarf":"A yellow dwarf is a medium-sized star like the Sun.",
+                "white dwarf":"A white dwarf is the remnant of a low-mass star.",
+                "red giant":"A red giant forms when stars expand after hydrogen depletion.",
+                "blue giant":"Blue giants are massive hot stars.",
+                "supergiant":"Supergiants are among the largest stars.",
+                "brown dwarf":"Brown dwarfs are between planets and stars.",
+                "neutron star":"Neutron stars are ultra-dense stellar remnants.",
+
+                "fusion":"Fusion powers stars by combining hydrogen into helium.",
+                "solar flare":"Solar flares are sudden bursts of solar radiation.",
+                "sunspots":"Sunspots are cooler dark regions on the Sun.",
+
+                "proxima centauri b":"Proxima Centauri b is the nearest known exoplanet.",
+                "kepler-22b":"Kepler-22b lies in its star's habitable zone.",
+                "kepler-452b":"Kepler-452b is often called Earth's cousin.",
+                "trappist-1e":"TRAPPIST-1e is a rocky habitable exoplanet.",
+                "trappist-1f":"TRAPPIST-1f may contain liquid water.",
+                "55 cancri e":"55 Cancri e is an extremely hot super-Earth.",
+                "hd 209458 b":"HD 209458 b was the first exoplanet with atmosphere detected.",
+
+                "transit method":"The transit method detects exoplanets when they pass in front of stars.",
+                "radial velocity":"Radial velocity detects star wobble caused by planets.",
+                "biosignature":"A biosignature suggests possible life.",
+
+                "milky way":"The Milky Way is our home galaxy.",
+                "andromeda":"Andromeda is the nearest major galaxy.",
+                "dark matter":"Dark matter is invisible material affecting galaxies.",
+                "dark energy":"Dark energy drives universal expansion.",
+
+                "iss":"The ISS is a research station orbiting Earth.",
+                "hubble":"Hubble observes distant galaxies.",
+                "james webb":"James Webb studies the early universe in infrared."
             }
-            for k,v in keywords.items():
+
+            for k, v in keywords.items():
                 if k.lower() in user_q.lower():
                     ans = v
                     break
+
             st.info(ans)
 with tab7:
     import streamlit.components.v1 as components
