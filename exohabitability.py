@@ -333,52 +333,67 @@ with tab7:
         transform:rotate(20deg);
     }
 
+    .moon-orbit,.iss-orbit,.hubble-orbit,.europa-orbit,.titan-orbit{
+        position:absolute;
+        border-radius:50%;
+    }
+
     .moon-orbit{
-        position:absolute;
-        width:34px;
-        height:34px;
-        border:1px dashed rgba(255,255,255,0.18);
-        border-radius:50%;
-        top:-8px;
-        left:-8px;
-        animation:spin 2s linear infinite;
+        width:34px;height:34px;border:1px dashed rgba(255,255,255,0.18);
+        top:-8px;left:-8px;animation:spin 2s linear infinite;
     }
 
-    .moon{
-        position:absolute;
-        width:5px;
-        height:5px;
-        background:white;
-        border-radius:50%;
-        top:50%;
-        left:-2px;
+    .iss-orbit{
+        width:46px;height:46px;border:1px dotted rgba(255,255,255,0.12);
+        top:-14px;left:-14px;animation:spin 1.2s linear infinite;
     }
 
-    .moon-label{
+    .hubble-orbit{
+        width:56px;height:56px;border:1px dotted rgba(255,255,255,0.10);
+        top:-19px;left:-19px;animation:spin 1.8s linear infinite;
+    }
+
+    .europa-orbit{
+        width:46px;height:46px;border:1px dotted rgba(255,255,255,0.10);
+        top:-8px;left:-8px;animation:spin 3s linear infinite;
+    }
+
+    .titan-orbit{
+        width:44px;height:44px;border:1px dotted rgba(255,255,255,0.10);
+        top:-9px;left:-9px;animation:spin 3.5s linear infinite;
+    }
+
+    .moon,.europa,.titan{
         position:absolute;
-        color:white;
-        font-size:10px;
-        left:8px;
-        top:-8px;
+        width:5px;height:5px;background:white;border-radius:50%;top:50%;left:-2px;
+    }
+
+    .iss{
+        position:absolute;
+        width:8px;height:4px;background:silver;top:50%;left:-4px;box-shadow:0 0 8px white;
+    }
+
+    .iss::before{
+        content:'';position:absolute;width:14px;height:2px;background:royalblue;left:-3px;top:1px;
+    }
+
+    .hubble{
+        position:absolute;
+        width:6px;height:6px;background:silver;top:50%;left:-3px;box-shadow:0 0 6px white;
     }
 
     .comet{
         position:absolute;
-        width:12px;
-        height:12px;
-        background:red;
-        border-radius:50%;
+        width:12px;height:12px;background:red;border-radius:50%;
         box-shadow:0 0 35px red;
         animation:cometmove 5s linear infinite;
     }
 
     .comet-tail{
         position:absolute;
-        width:90px;
-        height:3px;
+        width:90px;height:3px;
         background:linear-gradient(to left,red,transparent);
-        top:4px;
-        left:-85px;
+        top:4px;left:-85px;
     }
 
     @keyframes cometmove{
@@ -415,15 +430,12 @@ with tab7:
         a.style.height='2px';
         a.style.background='gray';
         a.style.borderRadius='50%';
-
         let angle=Math.random()*360;
         let r=410+Math.random()*35;
         let x=625+r*Math.cos(angle*Math.PI/180);
         let y=475+r*Math.sin(angle*Math.PI/180);
-
         a.style.left=x+'px';
         a.style.top=y+'px';
-
         document.currentScript.parentElement.appendChild(a);
     }
     </script>
@@ -436,19 +448,26 @@ with tab7:
     <div class="orbit earth-orbit">
         <div class="planet earth">
             <div class="label">Earth</div>
-            <div class="moon-orbit">
-                <div class="moon"><div class="moon-label">Moon</div></div>
-            </div>
+            <div class="moon-orbit"><div class="moon"></div></div>
+            <div class="iss-orbit"><div class="iss"></div></div>
+            <div class="hubble-orbit"><div class="hubble"></div></div>
         </div>
     </div>
 
     <div class="orbit mars-orbit"><div class="planet mars"><div class="label">Mars</div></div></div>
-    <div class="orbit jupiter-orbit"><div class="planet jupiter"><div class="label">Jupiter</div></div></div>
+
+    <div class="orbit jupiter-orbit">
+        <div class="planet jupiter">
+            <div class="label">Jupiter</div>
+            <div class="europa-orbit"><div class="europa"></div></div>
+        </div>
+    </div>
 
     <div class="orbit saturn-orbit">
         <div class="planet saturn">
             <div class="ring"></div>
             <div class="label">Saturn</div>
+            <div class="titan-orbit"><div class="titan"></div></div>
         </div>
     </div>
 
@@ -466,13 +485,13 @@ with tab7:
 
     planet_facts = {
         "Mercury": "Mercury is the closest planet to the Sun.",
-        "Venus": "Venus is the hottest planet in our solar system.",
-        "Earth": "Earth supports life and has one natural satellite.",
-        "Mars": "Mars contains Olympus Mons, the tallest volcano.",
-        "Jupiter": "Jupiter is the largest planet and has many moons.",
-        "Saturn": "Saturn is famous for its icy rings.",
-        "Uranus": "Uranus rotates on its side.",
-        "Neptune": "Neptune has the fastest winds in the solar system."
+        "Venus": "Venus is the hottest planet.",
+        "Earth": "Earth supports life and hosts ISS and Hubble.",
+        "Mars": "Mars contains Olympus Mons.",
+        "Jupiter": "Jupiter hosts Europa.",
+        "Saturn": "Saturn hosts Titan and icy rings.",
+        "Uranus": "Uranus rotates sideways.",
+        "Neptune": "Neptune has extreme winds."
     }
 
     selected = st.selectbox("Choose a planet", list(planet_facts.keys()))
