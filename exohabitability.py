@@ -35,7 +35,7 @@ df_planets = pd.DataFrame(planet_data)
 # --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs([
     "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover",
-    "🌌 Galaxy Notes", "📝 Assessment Zone", "🤖 SpaceBot AI", "planetarium view".
+    "🌌 Galaxy Notes", "📝 Assessment Zone", "🤖 SpaceBot AI","planetarium view"
 ])
 
 # ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
