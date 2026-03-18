@@ -215,10 +215,9 @@ with tab6:
                     ans = v
                     break
             st.info(ans)
-            with tab7:
+with tab7:
     import streamlit.components.v1 as components
 
-    # Only Tab 7 black background
     st.markdown("""
         <style>
         div[data-testid="stVerticalBlock"]:has(div iframe) {
