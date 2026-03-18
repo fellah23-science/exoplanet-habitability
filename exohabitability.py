@@ -253,11 +253,11 @@ with tab7:
         position:absolute;
         background:white;
         border-radius:50%;
-        animation:twinkle 3s infinite alternate;
+        animation:twinkle 4s infinite alternate;
     }
 
     @keyframes twinkle{
-        from{opacity:0.2;}
+        from{opacity:0.25;}
         to{opacity:1;}
     }
 
@@ -291,7 +291,7 @@ with tab7:
     }
 
     .planet:hover{
-        transform:scale(1.4);
+        transform:scale(1.35);
         box-shadow:0 0 22px white;
     }
 
@@ -304,14 +304,14 @@ with tab7:
         white-space:nowrap;
     }
 
-    .mercury-orbit{width:130px;height:130px;animation:spin 5s linear infinite;}
-    .venus-orbit{width:200px;height:200px;animation:spin 8s linear infinite;}
-    .earth-orbit{width:270px;height:270px;animation:spin 12s linear infinite;}
-    .mars-orbit{width:340px;height:340px;animation:spin 16s linear infinite;}
-    .jupiter-orbit{width:470px;height:470px;animation:spin 24s linear infinite;}
-    .saturn-orbit{width:610px;height:610px;animation:spin 32s linear infinite;}
-    .uranus-orbit{width:760px;height:760px;animation:spin 42s linear infinite;}
-    .neptune-orbit{width:900px;height:900px;animation:spin 54s linear infinite;}
+    .mercury-orbit{width:130px;height:130px;animation:spin 12s linear infinite;}
+    .venus-orbit{width:200px;height:200px;animation:spin 18s linear infinite;}
+    .earth-orbit{width:270px;height:270px;animation:spin 24s linear infinite;}
+    .mars-orbit{width:340px;height:340px;animation:spin 32s linear infinite;}
+    .jupiter-orbit{width:470px;height:470px;animation:spin 48s linear infinite;}
+    .saturn-orbit{width:610px;height:610px;animation:spin 64s linear infinite;}
+    .uranus-orbit{width:760px;height:760px;animation:spin 82s linear infinite;}
+    .neptune-orbit{width:900px;height:900px;animation:spin 100s linear infinite;}
 
     .mercury{width:10px;height:10px;top:50%;left:-5px;background:radial-gradient(circle,lightgray,gray);}
     .venus{width:14px;height:14px;top:50%;left:-7px;background:radial-gradient(circle,#ffd27f,orange);}
@@ -333,67 +333,116 @@ with tab7:
         transform:rotate(20deg);
     }
 
-    .moon-orbit,.iss-orbit,.hubble-orbit,.europa-orbit,.titan-orbit{
+    .moon-orbit{
         position:absolute;
+        width:34px;
+        height:34px;
+        border:1px dashed rgba(255,255,255,0.15);
         border-radius:50%;
+        top:-8px;
+        left:-8px;
+        animation:spin 5s linear infinite;
     }
 
-    .moon-orbit{
-        width:34px;height:34px;border:1px dashed rgba(255,255,255,0.18);
-        top:-8px;left:-8px;animation:spin 2s linear infinite;
+    .moon{
+        position:absolute;
+        width:5px;
+        height:5px;
+        background:white;
+        border-radius:50%;
+        top:50%;
+        left:-2px;
     }
 
     .iss-orbit{
-        width:46px;height:46px;border:1px dotted rgba(255,255,255,0.12);
-        top:-14px;left:-14px;animation:spin 1.2s linear infinite;
-    }
-
-    .hubble-orbit{
-        width:56px;height:56px;border:1px dotted rgba(255,255,255,0.10);
-        top:-19px;left:-19px;animation:spin 1.8s linear infinite;
-    }
-
-    .europa-orbit{
-        width:46px;height:46px;border:1px dotted rgba(255,255,255,0.10);
-        top:-8px;left:-8px;animation:spin 3s linear infinite;
-    }
-
-    .titan-orbit{
-        width:44px;height:44px;border:1px dotted rgba(255,255,255,0.10);
-        top:-9px;left:-9px;animation:spin 3.5s linear infinite;
-    }
-
-    .moon,.europa,.titan{
         position:absolute;
-        width:5px;height:5px;background:white;border-radius:50%;top:50%;left:-2px;
+        width:50px;
+        height:50px;
+        border:1px dotted rgba(255,255,255,0.10);
+        border-radius:50%;
+        top:-16px;
+        left:-16px;
+        animation:spin 4s linear infinite;
     }
 
     .iss{
         position:absolute;
-        width:8px;height:4px;background:silver;top:50%;left:-4px;box-shadow:0 0 8px white;
+        width:10px;
+        height:4px;
+        background:silver;
+        top:50%;
+        left:-5px;
+        box-shadow:0 0 8px white;
     }
 
     .iss::before{
-        content:'';position:absolute;width:14px;height:2px;background:royalblue;left:-3px;top:1px;
+        content:'';
+        position:absolute;
+        width:18px;
+        height:2px;
+        background:royalblue;
+        left:-4px;
+        top:1px;
+    }
+
+    .iss::after{
+        content:'';
+        position:absolute;
+        width:2px;
+        height:8px;
+        background:white;
+        left:4px;
+        top:-2px;
+    }
+
+    .hubble-orbit{
+        position:absolute;
+        width:64px;
+        height:64px;
+        border:1px dotted rgba(255,255,255,0.08);
+        border-radius:50%;
+        top:-23px;
+        left:-23px;
+        animation:spin 6s linear infinite;
     }
 
     .hubble{
         position:absolute;
-        width:6px;height:6px;background:silver;top:50%;left:-3px;box-shadow:0 0 6px white;
+        width:5px;
+        height:10px;
+        background:silver;
+        top:50%;
+        left:-2px;
+        box-shadow:0 0 6px white;
+    }
+
+    .hubble::before{
+        content:'';
+        position:absolute;
+        width:14px;
+        height:2px;
+        background:royalblue;
+        left:-4px;
+        top:4px;
     }
 
     .comet{
         position:absolute;
-        width:12px;height:12px;background:red;border-radius:50%;
+        width:12px;
+        height:12px;
+        background:red;
+        border-radius:50%;
         box-shadow:0 0 35px red;
-        animation:cometmove 5s linear infinite;
+        animation:cometmove 9s linear infinite;
     }
 
     .comet-tail{
         position:absolute;
-        width:90px;height:3px;
+        width:90px;
+        height:3px;
         background:linear-gradient(to left,red,transparent);
-        top:4px;left:-85px;
+        top:4px;
+        left:-85px;
     }
 
     @keyframes cometmove{
@@ -455,19 +504,12 @@ with tab7:
     </div>
 
     <div class="orbit mars-orbit"><div class="planet mars"><div class="label">Mars</div></div></div>
-
-    <div class="orbit jupiter-orbit">
-        <div class="planet jupiter">
-            <div class="label">Jupiter</div>
-            <div class="europa-orbit"><div class="europa"></div></div>
-        </div>
-    </div>
+    <div class="orbit jupiter-orbit"><div class="planet jupiter"><div class="label">Jupiter</div></div></div>
 
     <div class="orbit saturn-orbit">
         <div class="planet saturn">
             <div class="ring"></div>
             <div class="label">Saturn</div>
-            <div class="titan-orbit"><div class="titan"></div></div>
         </div>
     </div>
 
@@ -486,10 +528,10 @@ with tab7:
     planet_facts = {
         "Mercury": "Mercury is the closest planet to the Sun.",
         "Venus": "Venus is the hottest planet.",
-        "Earth": "Earth supports life and hosts ISS and Hubble.",
+        "Earth": "Earth hosts the ISS and Hubble telescope.",
         "Mars": "Mars contains Olympus Mons.",
-        "Jupiter": "Jupiter hosts Europa.",
-        "Saturn": "Saturn hosts Titan and icy rings.",
+        "Jupiter": "Jupiter is the largest planet.",
+        "Saturn": "Saturn has icy rings.",
         "Uranus": "Uranus rotates sideways.",
         "Neptune": "Neptune has extreme winds."
     }
