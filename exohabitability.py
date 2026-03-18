@@ -188,7 +188,6 @@ with tab5:
             st.warning("You missed the following:")
             for w in wrong_answers:
                 st.write(w)
-```python
 # ----------------- TAB 6: SPACEBOT AI -----------------
 with tab6:
     st.header("🤖 SpaceBot AI")
