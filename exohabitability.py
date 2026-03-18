@@ -220,16 +220,14 @@ with tab7:
 
     st.markdown("""
         <style>
-        div[data-testid="stVerticalBlock"]:has(div iframe) {
-            background-color: black;
-            padding: 20px;
+        iframe {
+            background-color: black !important;
             border-radius: 15px;
         }
         </style>
     """, unsafe_allow_html=True)
 
     st.subheader("🌌 Planetarium View")
-
     solar_html = """
     <!DOCTYPE html>
     <html>
