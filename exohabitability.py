@@ -17,22 +17,29 @@ AU = 1.496e11
 # --- PAGE SETUP ---
 st.set_page_config(page_title="ExoHabit App", layout="wide")
 st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
-    # --- PLANET DATA (Updated for App) ---
+   # --- PLANET DATA ---
 planet_data = [
-    {"Planet":"Earth","Orbital Distance":1,"Orbital Period":365,"Eccentricity":0,"Inclination":90,
-     "Stellar Flux":1.0,"Star Mass":1.0,"Star Luminosity":1.0},
-    {"Planet":"Kepler-452b","Orbital Distance":1.046,"Orbital Period":384.84,"Eccentricity":0,"Inclination":89.806,
-     "Stellar Flux":1.089,"Star Mass":1.037,"Star Luminosity":0.084},
-    {"Planet":"Kepler-22b","Orbital Distance":0.849,"Orbital Period":289.86,"Eccentricity":"<0.72","Inclination":89.7,
-     "Stellar Flux":1.03,"Star Mass":0.799,"Star Luminosity":-0.102},
-    {"Planet":"Proxima Centauri-b","Orbital Distance":0.048,"Orbital Period":11.185,"Eccentricity":0,"Inclination":"unknown",
-     "Stellar Flux":0.641,"Star Mass":0.1221,"Star Luminosity":-2.82},
-    {"Planet":"Trappist-1e","Orbital Distance":0.029,"Orbital Period":6.099,"Eccentricity":"<0.085","Inclination":89.663,
-     "Stellar Flux":0.645,"Star Mass":0.089,"Star Luminosity":-3.26},
-    {"Planet":"Gliese-12b","Orbital Distance":0.06,"Orbital Period":12.76,"Eccentricity":"<0.50","Inclination":89.25,
-     "Stellar Flux":1.62,"Star Mass":0.241,"Star Luminosity":-2.14}
+    {"Planet":"Earth", "Orbital distance":1, "Orbital period":365, "Eccentricity":0, "Inclination":90, 
+     "Stellar flux":1.0, "Star mass":1.0, "Star luminosity":1.0},
+    {"Planet":"Kepler-452b", "Orbital distance":1.046, "Orbital period":384.84, "Eccentricity":0, "Inclination":89.806,
+     "Stellar flux":1.089, "Star mass":1.037, "Star luminosity":0.084},
+    {"Planet":"Kepler-22b", "Orbital distance":0.849, "Orbital period":289.86, "Eccentricity":"<0.72", "Inclination":89.7,
+     "Stellar flux":1.03, "Star mass":0.799, "Star luminosity":-0.102},
+    {"Planet":"Proxima Centauri-b", "Orbital distance":0.048, "Orbital period":11.185, "Eccentricity":0, "Inclination":"unknown",
+     "Stellar flux":0.641, "Star mass":0.1221, "Star luminosity":-2.82},
+    {"Planet":"Trappist-1e", "Orbital distance":0.029, "Orbital period":6.099, "Eccentricity":"<0.085", "Inclination":89.663,
+     "Stellar flux":0.645, "Star mass":0.089, "Star luminosity":-3.26},
+    {"Planet":"Gliese-12b", "Orbital distance":0.06, "Orbital period":12.76, "Eccentricity":"<0.50", "Inclination":89.25,
+     "Stellar flux":1.62, "Star mass":0.241, "Star luminosity":-2.14}
 ]
-    
+
+# Convert to DataFrame for Streamlit display
+import pandas as pd
+df_planets = pd.DataFrame(planet_data)
+
+# Show in app
+import streamlit as st
+st.dataframe(df_planets, use_container_width=True)
 
 # --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs([
