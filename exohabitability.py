@@ -31,7 +31,6 @@ planet_data = [
     {"Planet":"Gliese-12b","Orbital Distance":0.06,"Orbital Period":12.76,"Eccentricity":"<0.50","Inclination":89.25,
      "Stellar Flux":1.62,"Star Mass":0.241,"Star Luminosity":-2.14}
 ]
-df_planets = pd.DataFrame(planet_data)
     
 
 # --- TABS ---
