@@ -124,7 +124,7 @@ with tab3:
         "🧬 Studying exoplanets helps us understand how life forms elsewhere."
     ]
     if st.button("🌟 Show a Space Fact"):
-        st.info(random.choice(facts)
+        st.info(random.choice(facts))
 
 # ----------------- TAB 4: GALAXY NOTES -----------------
 with tab4:
