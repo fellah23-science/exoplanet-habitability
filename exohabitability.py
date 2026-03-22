@@ -17,9 +17,7 @@ AU = 1.496e11
 # --- PAGE SETUP ---
 st.set_page_config(page_title="ExoHabit App", layout="wide")
 st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
- # ----------------- TAB 2: EXOPLANET DATA -----------------
-with tab2:
-    st.header("📊 Explore Exoplanet Data")
+ # ----------------- EXOPLANET DATA -----------------
 
     # --- UPDATED PLANET DATA ---
     planet_data = [
@@ -38,7 +36,7 @@ with tab2:
     ]
     df_planets = pd.DataFrame(planet_data)
 
-    # Display table in TAB 2 only
+    # Display table 
     st.dataframe(df_planets, use_container_width=True)
 
 # --- TABS ---
