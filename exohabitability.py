@@ -19,18 +19,24 @@ st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
 
 # --- PLANET DATA ---
 planet_data = [
-    {"Planet":"Kepler-22b","Eccentricity":0.72,"Orbital Period (days)":289.86,"Inclination (°)":89.764,
-     "Planet Mass (M⊕)":36,"Star Mass (M☉)":0.97,"Star Luminosity (log10 L/L☉)":-0.19},
-    {"Planet":"Kepler-452b","Eccentricity":0.0,"Orbital Period (days)":384.84,"Inclination (°)":89.99,
-     "Planet Mass (M⊕)":2.0,"Star Mass (M☉)":0.892,"Star Luminosity (log10 L/L☉)":0.084},
-    {"Planet":"Proxima Centauri b","Eccentricity":0.02,"Orbital Period (days)":11.1,"Inclination (°)":90.0,
-     "Planet Mass (M⊕)":1.07,"Star Mass (M☉)":0.12,"Star Luminosity (log10 L/L☉)":-2.8},
-    {"Planet":"TRAPPIST-1e","Eccentricity":0.085,"Orbital Period (days)":6.09,"Inclination (°)":89.86,
-     "Planet Mass (M⊕)":0.62,"Star Mass (M☉)":0.08,"Star Luminosity (log10 L/L☉)":-2.13},
-    {"Planet":"Gliese 12b","Eccentricity":0.5,"Orbital Period (days)":12.76,"Inclination (°)":89.2,
-     "Planet Mass (M⊕)":10,"Star Mass (M☉)":0.241,"Star Luminosity (log10 L/L☉)":-2.13}
+    # --- PLANET DATA (Updated for App) ---
+planet_data = [
+    {"Planet":"Earth","Orbital Distance":1,"Orbital Period":365,"Eccentricity":0,"Inclination":90,
+     "Stellar Flux":1.0,"Star Mass":1.0,"Star Luminosity":1.0},
+    {"Planet":"Kepler-452b","Orbital Distance":1.046,"Orbital Period":384.84,"Eccentricity":0,"Inclination":89.806,
+     "Stellar Flux":1.089,"Star Mass":1.037,"Star Luminosity":0.084},
+    {"Planet":"Kepler-22b","Orbital Distance":0.849,"Orbital Period":289.86,"Eccentricity":"<0.72","Inclination":89.7,
+     "Stellar Flux":1.03,"Star Mass":0.799,"Star Luminosity":-0.102},
+    {"Planet":"Proxima Centauri-b","Orbital Distance":0.048,"Orbital Period":11.185,"Eccentricity":0,"Inclination":"unknown",
+     "Stellar Flux":0.641,"Star Mass":0.1221,"Star Luminosity":-2.82},
+    {"Planet":"Trappist-1e","Orbital Distance":0.029,"Orbital Period":6.099,"Eccentricity":"<0.085","Inclination":89.663,
+     "Stellar Flux":0.645,"Star Mass":0.089,"Star Luminosity":-3.26},
+    {"Planet":"Gliese-12b","Orbital Distance":0.06,"Orbital Period":12.76,"Eccentricity":"<0.50","Inclination":89.25,
+     "Stellar Flux":1.62,"Star Mass":0.241,"Star Luminosity":-2.14}
 ]
+
 df_planets = pd.DataFrame(planet_data)
+    
 
 # --- TABS ---
 tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs([
