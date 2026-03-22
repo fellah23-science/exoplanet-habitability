@@ -3,6 +3,7 @@ import math
 import numpy as np
 import pandas as pd
 import random
+st.cache_data.clear()
 
 # --- CONSTANTS ---
 G = 6.67430e-11
