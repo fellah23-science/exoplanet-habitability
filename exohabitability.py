@@ -17,32 +17,11 @@ AU = 1.496e11
 # --- PAGE SETUP ---
 st.set_page_config(page_title="ExoHabit App", layout="wide")
 st.title("🌌 ExoHabit – Exoplanet Habitability Calculator")
- # ----------------- EXOPLANET DATA -----------------
 
-    # --- UPDATED PLANET DATA ---
-    planet_data = [
-        {"Planet":"Earth", "Orbital distance":1, "Orbital period":365, "Eccentricity":0, "Inclination":90, 
-         "Stellar flux":1.0, "Star mass":1.0, "Star luminosity":1.0},
-        {"Planet":"Kepler-452b", "Orbital distance":1.046, "Orbital period":384.84, "Eccentricity":0, "Inclination":89.806,
-         "Stellar flux":1.089, "Star mass":1.037, "Star luminosity":0.084},
-        {"Planet":"Kepler-22b", "Orbital distance":0.849, "Orbital period":289.86, "Eccentricity":"<0.72", "Inclination":89.7,
-         "Stellar flux":1.03, "Star mass":0.799, "Star luminosity":-0.102},
-        {"Planet":"Proxima Centauri-b", "Orbital distance":0.048, "Orbital period":11.185, "Eccentricity":0, "Inclination":"unknown",
-         "Stellar flux":0.641, "Star mass":0.1221, "Star luminosity":-2.82},
-        {"Planet":"Trappist-1e", "Orbital distance":0.029, "Orbital period":6.099, "Eccentricity":"<0.085", "Inclination":89.663,
-         "Stellar flux":0.645, "Star mass":0.089, "Star luminosity":-3.26},
-        {"Planet":"Gliese-12b", "Orbital distance":0.06, "Orbital period":12.76, "Eccentricity":"<0.50", "Inclination":89.25,
-         "Stellar flux":1.62, "Star mass":0.241, "Star luminosity":-2.14}
-    ]
-    df_planets = pd.DataFrame(planet_data)
-
-    # Display table 
-    st.dataframe(df_planets, use_container_width=True)
-
-# --- TABS ---
-tab1, tab2, tab3, tab4, tab5, tab6,tab7 = st.tabs([
+# ----------------- TABS -----------------
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
     "🪐 Calculator", "📊 Exoplanet Data", "💫 Learn & Discover",
-    "🌌 Galaxy Notes", "📝 Assessment Zone", "🤖 SpaceBot AI","planetarium view"
+    "🌌 Galaxy Notes", "📝 Assessment Zone", "🤖 SpaceBot AI", "Planetarium View"
 ])
 
 # ----------------- TAB 1: HABITABILITY CALCULATOR -----------------
@@ -101,22 +80,35 @@ with tab1:
 # ----------------- TAB 2: EXOPLANET DATA -----------------
 with tab2:
     st.header("📊 Explore Exoplanet Data")
-    data = {
-        "Planet Name": ["Kepler-22b", "Kepler-452b", "Proxima Centauri b", "TRAPPIST-1e", "Kepler-186f", "Gliese 667 Cc"],
-        "Distance (ly)": [620, 1400, 4.24, 39.6, 490, 23.6],
-        "Orbital Distance (AU)": [0.85, 1.05, 0.05, 0.029, 0.36, 0.125],
-        "Stellar Flux (Earth=1)": [1.11, 1.04, 0.65, 0.66, 0.26, 0.9],
-        "Eccentricity": [0.02, 0.05, 0.15, 0.005, 0.02, 0.1],
-        "Planet Mass (Earth=1)": [2.4, 5.0, 1.3, 0.77, 1.4, 4.5]
-    }
-    df = pd.DataFrame(data)
-    st.dataframe(df, use_container_width=True)
 
-    csv = df.to_csv(index=False).encode('utf-8')
+    # --- UPDATED PLANET DATA ---
+    planet_data = [
+        {"Planet":"Earth", "Orbital distance":1, "Orbital period":365, "Eccentricity":0, "Inclination":90, 
+         "Stellar flux":1.0, "Star mass":1.0, "Star luminosity":1.0},
+        {"Planet":"Kepler-452b", "Orbital distance":1.046, "Orbital period":384.84, "Eccentricity":0, "Inclination":89.806,
+         "Stellar flux":1.089, "Star mass":1.037, "Star luminosity":0.084},
+        {"Planet":"Kepler-22b", "Orbital distance":0.849, "Orbital period":289.86, "Eccentricity":"<0.72", "Inclination":89.7,
+         "Stellar flux":1.03, "Star mass":0.799, "Star luminosity":-0.102},
+        {"Planet":"Proxima Centauri-b", "Orbital distance":0.048, "Orbital period":11.185, "Eccentricity":0, "Inclination":"unknown",
+         "Stellar flux":0.641, "Star mass":0.1221, "Star luminosity":-2.82},
+        {"Planet":"Trappist-1e", "Orbital distance":0.029, "Orbital period":6.099, "Eccentricity":"<0.085", "Inclination":89.663,
+         "Stellar flux":0.645, "Star mass":0.089, "Star luminosity":-3.26},
+        {"Planet":"Gliese-12b", "Orbital distance":0.06, "Orbital period":12.76, "Eccentricity":"<0.50", "Inclination":89.25,
+         "Stellar flux":1.62, "Star mass":0.241, "Star luminosity":-2.14}
+    ]
+
+    df_planets = pd.DataFrame(planet_data)
+
+    # Display table
+    st.dataframe(df_planets, use_container_width=True)
+
+    # CSV download
+    csv = df_planets.to_csv(index=False).encode('utf-8')
     st.download_button("⬇️ Download Exoplanet Data", csv, "exoplanet_data.csv", "text/csv")
 
-    selected_planet = st.selectbox("🔹 Choose a planet to analyze:", df["Planet Name"])
-    planet_info = df[df["Planet Name"] == selected_planet]
+    # Select a planet to view details
+    selected_planet = st.selectbox("🔹 Choose a planet to analyze:", df_planets["Planet"])
+    planet_info = df_planets[df_planets["Planet"] == selected_planet]
     st.success(f"✅ Selected: {selected_planet}")
     st.dataframe(planet_info)
 
@@ -132,7 +124,7 @@ with tab3:
         "🧬 Studying exoplanets helps us understand how life forms elsewhere."
     ]
     if st.button("🌟 Show a Space Fact"):
-        st.info(random.choice(facts))
+        st.info(random.choice(facts)
 
 # ----------------- TAB 4: GALAXY NOTES -----------------
 with tab4:
