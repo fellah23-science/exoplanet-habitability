@@ -81,20 +81,20 @@ with tab1:
 with tab2:
     st.header("📊 Explore Exoplanet Data")
 
-    # --- UPDATED PLANET DATA ---
+    # --- UPDATED PLANET DATA WITH PLANET MASS & EQUILIBRIUM TEMP ---
     planet_data = [
         {"Planet":"Earth", "Orbital distance":1, "Orbital period":365, "Eccentricity":0, "Inclination":90, 
-         "Stellar flux":1.0, "Star mass":1.0, "Star luminosity":1.0},
+         "Stellar flux":1.0, "Star mass":1.0, "Star luminosity":1.0, "Planet mass":1.0, "Equilibrium temperature":255},
         {"Planet":"Kepler-452b", "Orbital distance":1.046, "Orbital period":384.84, "Eccentricity":0, "Inclination":89.806,
-         "Stellar flux":1.089, "Star mass":1.037, "Star luminosity":0.084},
+         "Stellar flux":1.089, "Star mass":1.037, "Star luminosity":0.084, "Planet mass":"unknown", "Equilibrium temperature":265},
         {"Planet":"Kepler-22b", "Orbital distance":0.849, "Orbital period":289.86, "Eccentricity":"<0.72", "Inclination":89.7,
-         "Stellar flux":1.03, "Star mass":0.799, "Star luminosity":-0.102},
+         "Stellar flux":1.03, "Star mass":0.799, "Star luminosity":-0.102, "Planet mass":"<9.1", "Equilibrium temperature":267},
         {"Planet":"Proxima Centauri-b", "Orbital distance":0.048, "Orbital period":11.185, "Eccentricity":0, "Inclination":"unknown",
-         "Stellar flux":0.641, "Star mass":0.1221, "Star luminosity":-2.82},
+         "Stellar flux":0.641, "Star mass":0.1221, "Star luminosity":-2.82, "Planet mass":0.260, "Equilibrium temperature":282},
         {"Planet":"Trappist-1e", "Orbital distance":0.029, "Orbital period":6.099, "Eccentricity":"<0.085", "Inclination":89.663,
-         "Stellar flux":0.645, "Star mass":0.089, "Star luminosity":-3.26},
+         "Stellar flux":0.645, "Star mass":0.089, "Star luminosity":-3.26, "Planet mass":0.772, "Equilibrium temperature":251.3},
         {"Planet":"Gliese-12b", "Orbital distance":0.06, "Orbital period":12.76, "Eccentricity":"<0.50", "Inclination":89.25,
-         "Stellar flux":1.62, "Star mass":0.241, "Star luminosity":-2.14}
+         "Stellar flux":1.62, "Star mass":0.241, "Star luminosity":-2.14, "Planet mass":0.00299, "Equilibrium temperature":315}
     ]
 
     df_planets = pd.DataFrame(planet_data)
